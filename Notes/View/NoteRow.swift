@@ -21,8 +21,8 @@ struct NoteRow: View {
             Text(note.title)
                 .lineLimit(1)
                 .foregroundStyle(.primary)
-            if !note.description.isEmpty {
-                Text(note.description)
+            if !note.content.isEmpty {
+                Text(note.content)
                     .lineLimit(3)
                     .foregroundStyle(.secondary)
                     .multilineTextAlignment(.leading)
@@ -36,7 +36,7 @@ struct NoteRow: View {
 #Preview {
     let note = Note(
         title: "Título",
-        description: "Esta es una nota creada por mí para visualizar en la preview de Xcode y así diseñarla de la mejor manera posible. Esta nota tiene como fin ser presentada en el Canvas.",
+        content: "Esta es una nota creada por mí para visualizar en la preview de Xcode y así diseñarla de la mejor manera posible. Esta nota tiene como fin ser presentada en el Canvas.",
         createdAt: Calendar.current.date(byAdding: .day, value: -1, to: .now)!,
         updatedAt: .now
     )

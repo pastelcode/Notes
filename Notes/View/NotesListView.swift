@@ -42,9 +42,9 @@ struct NotesListView: View {
 #Preview {
     let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: .now)!
     let notes = [
-        Note(title: "Hacer mi cama", description: "Componer mi cama", createdAt: yesterday, updatedAt: yesterday),
+        Note(title: "Hacer mi cama", content: "Componer mi cama", createdAt: yesterday, updatedAt: yesterday),
         Note(title: "Hacer cita en Visualiza", createdAt: yesterday, updatedAt: .now),
-        Note(title: "Tomar agua", description: "2 litros como mínimo", createdAt: yesterday, updatedAt: .now)
+        Note(title: "Tomar agua", content: "2 litros como mínimo", createdAt: yesterday, updatedAt: .now)
     ]
     
     return NotesListView()

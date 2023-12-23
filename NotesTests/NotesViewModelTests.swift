@@ -23,12 +23,12 @@ final class NotesViewModelTests: XCTestCase {
         let now = Date.now
         
         // When
-        viewModel.createNoteWith(title: title, description: description)
+        viewModel.createNoteWith(title: title, content: description)
         
         // Then
         XCTAssertEqual(viewModel.notes.count, 1)
         XCTAssertEqual(viewModel.notes.first!.title, title)
-        XCTAssertEqual(viewModel.notes.first!.description, description)
+        XCTAssertEqual(viewModel.notes.first!.content, description)
         XCTAssertEqual(viewModel.notes.first!.createdAt.timeIntervalSinceReferenceDate, now.timeIntervalSinceReferenceDate, accuracy: 0.001)
         XCTAssertEqual(viewModel.notes.first!.updatedAt.timeIntervalSinceReferenceDate, now.timeIntervalSinceReferenceDate, accuracy: 0.001)
     }
@@ -44,25 +44,25 @@ final class NotesViewModelTests: XCTestCase {
         let now = Date.now
         
         // When
-        viewModel.createNoteWith(title: title1, description: description1)
-        viewModel.createNoteWith(title: title2, description: description2)
-        viewModel.createNoteWith(title: title3, description: description3)
+        viewModel.createNoteWith(title: title1, content: description1)
+        viewModel.createNoteWith(title: title2, content: description2)
+        viewModel.createNoteWith(title: title3, content: description3)
         
         // Then
         XCTAssertEqual(viewModel.notes.count, 3)
         
         XCTAssertEqual(viewModel.notes.first!.title, title1)
-        XCTAssertEqual(viewModel.notes.first!.description, description1)
+        XCTAssertEqual(viewModel.notes.first!.content, description1)
         XCTAssertEqual(viewModel.notes.first!.createdAt.timeIntervalSinceReferenceDate, now.timeIntervalSinceReferenceDate, accuracy: 0.001)
         XCTAssertEqual(viewModel.notes.first!.updatedAt.timeIntervalSinceReferenceDate, now.timeIntervalSinceReferenceDate, accuracy: 0.001)
         
         XCTAssertEqual(viewModel.notes[1].title, title2)
-        XCTAssertEqual(viewModel.notes[1].description, description2)
+        XCTAssertEqual(viewModel.notes[1].content, description2)
         XCTAssertEqual(viewModel.notes[1].createdAt.timeIntervalSinceReferenceDate, now.timeIntervalSinceReferenceDate, accuracy: 0.001)
         XCTAssertEqual(viewModel.notes[1].updatedAt.timeIntervalSinceReferenceDate, now.timeIntervalSinceReferenceDate, accuracy: 0.001)
         
         XCTAssertEqual(viewModel.notes[2].title, title3)
-        XCTAssertEqual(viewModel.notes[2].description, description3)
+        XCTAssertEqual(viewModel.notes[2].content, description3)
         XCTAssertEqual(viewModel.notes[2].createdAt.timeIntervalSinceReferenceDate, now.timeIntervalSinceReferenceDate, accuracy: 0.001)
         XCTAssertEqual(viewModel.notes[2].updatedAt.timeIntervalSinceReferenceDate, now.timeIntervalSinceReferenceDate, accuracy: 0.001)
     }
@@ -71,15 +71,15 @@ final class NotesViewModelTests: XCTestCase {
         // Given
         let title = "Test Title"
         let description = "Test Description"
-        viewModel.createNoteWith(title: title, description: description)
+        viewModel.createNoteWith(title: title, content: description)
         
         let newTitle = "New Test Title"
         let newDescription = "New Test Description"
         
         // When
         let now = Date.now
-        if let id = viewModel.notes.first?.id {
-            viewModel.updateNoteWith(id: id, title: newTitle, description: newDescription)
+        if let identifier = viewModel.notes.first?.identifier {
+            viewModel.updateNoteWith(identifier: identifier, title: newTitle, content: newDescription)
         } else {
             XCTFail("No note was created")
         }
@@ -87,7 +87,7 @@ final class NotesViewModelTests: XCTestCase {
         // Then
         XCTAssertEqual(viewModel.notes.count, 1)
         XCTAssertEqual(viewModel.notes.first?.title, newTitle)
-        XCTAssertEqual(viewModel.notes.first?.description, newDescription)
+        XCTAssertEqual(viewModel.notes.first?.content, newDescription)
         XCTAssertEqual(viewModel.notes.first!.updatedAt.timeIntervalSinceReferenceDate, now.timeIntervalSinceReferenceDate, accuracy: 0.001)
     }
     
@@ -95,11 +95,11 @@ final class NotesViewModelTests: XCTestCase {
         // Given
         let title = "Test Title"
         let description = "Test Description"
-        viewModel.createNoteWith(title: title, description: description)
+        viewModel.createNoteWith(title: title, content: description)
         
         // When
-        if let id = viewModel.notes.first?.id {
-            viewModel.removeNoteWith(id: id)
+        if let identifier = viewModel.notes.first?.identifier {
+            viewModel.removeNoteWith(identifier: identifier)
         } else {
             XCTFail("No note was created")
         }

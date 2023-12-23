@@ -6,18 +6,19 @@
 //
 
 import Foundation
+import SwiftData
 
-struct Note: Identifiable, Hashable {
-    let id: UUID
-    let title: String
-    let description: String
-    let createdAt: Date
-    let updatedAt: Date
+@Model final class Note: Identifiable, Hashable {
+    @Attribute(.unique) var identifier: UUID
+    var title: String
+    var content: String
+    var createdAt: Date
+    var updatedAt: Date
     
-    init(title: String, description: String = "", createdAt: Date, updatedAt: Date) {
-        self.id = .init()
+    init(title: String, content: String = "", createdAt: Date, updatedAt: Date) {
+        self.identifier = .init()
         self.title = title
-        self.description = description
+        self.content = content
         self.createdAt = createdAt
         self.updatedAt = updatedAt
     }

@@ -12,16 +12,16 @@ final class NoteTests: XCTestCase {
     func testNoteInitialization() {
         // Given or Arrange
         let title = "Test Title"
-        let description = "Test Description"
+        let content = "Test Description"
         let createdAt = Date.now
         let updatedAt = Date.now
         
         // When or Act
-        let note = Note(title: title, description: description, createdAt: createdAt, updatedAt: updatedAt)
+        let note = Note(title: title, content: content, createdAt: createdAt, updatedAt: updatedAt)
         
         // Then or Assert
         XCTAssertEqual(title, note.title)
-        XCTAssertEqual(description, note.description)
+        XCTAssertEqual(content, note.content)
         XCTAssertEqual(createdAt, note.createdAt)
         XCTAssertEqual(updatedAt, note.updatedAt)
     }
@@ -34,7 +34,7 @@ final class NoteTests: XCTestCase {
         let note = Note(title: title, createdAt: createdAt, updatedAt: updatedAt)
         
         XCTAssertEqual(title, note.title)
-        XCTAssertEqual("", note.description)
+        XCTAssertEqual("", note.content)
         XCTAssertEqual(createdAt, note.createdAt)
         XCTAssertEqual(updatedAt, note.updatedAt)
     }

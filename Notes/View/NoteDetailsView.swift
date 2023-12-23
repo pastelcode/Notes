@@ -10,30 +10,24 @@ import SwiftUI
 struct NoteDetailsView: View {
     init(note: Note? = nil) {
         self.note = note
-        _title = State(initialValue: note?.title ?? "")
-        _description = State(initialValue: note?.description ?? "")
     }
     
-    private enum FocusedField {
-        case title
-        case description
-    }
+    let note: Note?
     
     @Environment(NotesViewModel.self) private var notesViewModel
     @Environment(\.dismiss) private var dismiss
     
     @State private var title = ""
-    @State private var description = ""
+    @State private var content = ""
     @State private var showEmptyTitleError = false
     @State private var showDeleteAlert = false
     
-    private let note: Note?
     
     private var isUpdate: Bool {
         note != nil
     }
     private var isModifiedFromOriginalNote: Bool {
-        title != note?.title || description != note?.description
+        title != note?.title || content != note?.content
     }
     
     var body: some View {
@@ -44,7 +38,7 @@ struct NoteDetailsView: View {
                         .onChange(of: title) { _, newValue in
                             showEmptyTitleError = newValue.containsOnlyWhitespaces
                         }
-                    TextField("Description", text: $description, axis: .vertical)
+                    TextField("Description", text: $content, axis: .vertical)
                 } footer: {
                     if showEmptyTitleError {
                         HStack {
@@ -83,14 +77,14 @@ struct NoteDetailsView: View {
                             }
                             if (isUpdate) {
                                 notesViewModel.updateNoteWith(
-                                    id: note!.id,
+                                    identifier: note!.identifier,
                                     title: title.trimmingCharacters(in: .whitespacesAndNewlines),
-                                    description: description.trimmingCharacters(in: .whitespacesAndNewlines)
+                                    content: content.trimmingCharacters(in: .whitespacesAndNewlines)
                                 )
                             } else {
                                 notesViewModel.createNoteWith(
                                     title: title.trimmingCharacters(in: .whitespacesAndNewlines),
-                                    description: description.trimmingCharacters(in: .whitespacesAndNewlines)
+                                    content: content.trimmingCharacters(in: .whitespacesAndNewlines)
                                 )
                             }
                             dismiss()
@@ -111,11 +105,22 @@ struct NoteDetailsView: View {
             .alert("Delete note", isPresented: $showDeleteAlert) {
                 Button("Cancel", role: .cancel) { }
                 Button("Delete", role: .destructive) {
-                    notesViewModel.removeNoteWith(id: note!.id)
+                    notesViewModel.removeNoteWith(identifier: note!.identifier)
                     dismiss()
                 }
             }
         }
+        .onAppear {
+            if let note {
+                title = note.title
+                content = note.content
+            }
+        }
+    }
+    
+    private enum FocusedField {
+        case title
+        case description
     }
 }
 
@@ -126,7 +131,7 @@ struct NoteDetailsView: View {
 
 #Preview("Update") {
     NoteDetailsView(
-        note: .init(title: "Old title", description: "Old description", createdAt: .now, updatedAt: .now)
+        note: .init(title: "Old title", content: "Old description", createdAt: .now, updatedAt: .now)
     )
     .environment(NotesViewModel())
 }

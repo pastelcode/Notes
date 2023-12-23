@@ -9,24 +9,43 @@ import Foundation
 
 @Observable final class NotesViewModel {
     var notes: [Note]
+    var sortNotesBy: KeyPath<Note, Date> = \.createdAt
     
-    init(notes: [Note] = []) {
+    let createNoteUseCase: CreateNoteUseCase
+    let fetchAllNotesUseCase: FetchAllNotesUseCase
+    
+    init(notes: [Note] = [], createNoteUseCase: CreateNoteUseCase = .init(), fetchAllNotesUseCase: FetchAllNotesUseCase = .init()) {
         self.notes = notes
+        self.createNoteUseCase = createNoteUseCase
+        self.fetchAllNotesUseCase = fetchAllNotesUseCase
+        fetchAllNotes()
     }
     
-    func createNoteWith(title: String, description: String) {
-        let note = Note(title: title, description: description, createdAt: .now, updatedAt: .now)
-        notes.append(note)
+    func createNoteWith(title: String, content: String) {
+        do {
+            try createNoteUseCase.createNoteWith(title: title, content: content)
+            fetchAllNotes()
+        } catch {
+            print("Error: \(error.localizedDescription)")
+        }
     }
     
-    func updateNoteWith(id: UUID, title: String, description: String) {
-        if let noteIndex = notes.firstIndex(where: { $0.id == id }) {
-            let updatedNote = Note(title: title, description: description, createdAt: notes[noteIndex].createdAt, updatedAt: .now)
+    func fetchAllNotes() {
+        do {
+            notes = try fetchAllNotesUseCase.fetchAll(sortBy: sortNotesBy)
+        } catch {
+            print("Error: \(error.localizedDescription)")
+        }
+    }
+    
+    func updateNoteWith(identifier: UUID, title: String, content: String) {
+        if let noteIndex = notes.firstIndex(where: { $0.identifier == identifier }) {
+            let updatedNote = Note(title: title, content: content, createdAt: notes[noteIndex].createdAt, updatedAt: .now)
             notes[noteIndex] = updatedNote
         }
     }
     
-    func removeNoteWith(id: UUID) {
-        notes.removeAll { $0.id == id }
+    func removeNoteWith(identifier: UUID) {
+        notes.removeAll { $0.identifier == identifier }
     }
 }
