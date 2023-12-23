@@ -1,0 +1,28 @@
+{
+  "configurations" : [
+    {
+      "id" : "802C51EE-530E-4861-9BAB-0FE31E78B372",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:Notes.xcodeproj",
+      "identifier" : "BF0456CA2B3546100098DE62",
+      "name" : "Notes"
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:Notes.xcodeproj",
+        "identifier" : "BF0456F02B366E920098DE62",
+        "name" : "NotesTests"
+      }
+    }
+  ],
+  "version" : 1
+}

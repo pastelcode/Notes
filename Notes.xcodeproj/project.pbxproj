@@ -18,7 +18,19 @@
 		BF0456E82B360BDC0098DE62 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0456E72B360BDC0098DE62 /* Utils.swift */; };
 		BF0456EA2B3616920098DE62 /* NotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0456E92B3616920098DE62 /* NotesView.swift */; };
 		BF0456EC2B36422D0098DE62 /* NoteRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0456EB2B36422D0098DE62 /* NoteRow.swift */; };
+		BF0456F42B366E920098DE62 /* NoteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0456F32B366E920098DE62 /* NoteTests.swift */; };
+		BF0456FB2B3676D10098DE62 /* NotesViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0456FA2B3676D10098DE62 /* NotesViewModelTests.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		BF0456F52B366E920098DE62 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BF0456C32B3546100098DE62 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BF0456CA2B3546100098DE62;
+			remoteInfo = Notes;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		BF0456CB2B3546100098DE62 /* Notes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Notes.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -33,10 +45,21 @@
 		BF0456E72B360BDC0098DE62 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		BF0456E92B3616920098DE62 /* NotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesView.swift; sourceTree = "<group>"; };
 		BF0456EB2B36422D0098DE62 /* NoteRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteRow.swift; sourceTree = "<group>"; };
+		BF0456F12B366E920098DE62 /* NotesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NotesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BF0456F32B366E920098DE62 /* NoteTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteTests.swift; sourceTree = "<group>"; };
+		BF0456FA2B3676D10098DE62 /* NotesViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesViewModelTests.swift; sourceTree = "<group>"; };
+		BF0456FC2B367FD20098DE62 /* Notes.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Notes.xctestplan; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		BF0456C82B3546100098DE62 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BF0456EE2B366E920098DE62 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -49,7 +72,9 @@
 		BF0456C22B3546100098DE62 = {
 			isa = PBXGroup;
 			children = (
+				BF0456FC2B367FD20098DE62 /* Notes.xctestplan */,
 				BF0456CD2B3546100098DE62 /* Notes */,
+				BF0456F22B366E920098DE62 /* NotesTests */,
 				BF0456CC2B3546100098DE62 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -58,6 +83,7 @@
 			isa = PBXGroup;
 			children = (
 				BF0456CB2B3546100098DE62 /* Notes.app */,
+				BF0456F12B366E920098DE62 /* NotesTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -112,6 +138,15 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		BF0456F22B366E920098DE62 /* NotesTests */ = {
+			isa = PBXGroup;
+			children = (
+				BF0456F32B366E920098DE62 /* NoteTests.swift */,
+				BF0456FA2B3676D10098DE62 /* NotesViewModelTests.swift */,
+			);
+			path = NotesTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -132,6 +167,24 @@
 			productReference = BF0456CB2B3546100098DE62 /* Notes.app */;
 			productType = "com.apple.product-type.application";
 		};
+		BF0456F02B366E920098DE62 /* NotesTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BF0456F72B366E920098DE62 /* Build configuration list for PBXNativeTarget "NotesTests" */;
+			buildPhases = (
+				BF0456ED2B366E920098DE62 /* Sources */,
+				BF0456EE2B366E920098DE62 /* Frameworks */,
+				BF0456EF2B366E920098DE62 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BF0456F62B366E920098DE62 /* PBXTargetDependency */,
+			);
+			name = NotesTests;
+			productName = NotesTests;
+			productReference = BF0456F12B366E920098DE62 /* NotesTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -144,6 +197,10 @@
 				TargetAttributes = {
 					BF0456CA2B3546100098DE62 = {
 						CreatedOnToolsVersion = 15.0;
+					};
+					BF0456F02B366E920098DE62 = {
+						CreatedOnToolsVersion = 15.0;
+						TestTargetID = BF0456CA2B3546100098DE62;
 					};
 				};
 			};
@@ -161,6 +218,7 @@
 			projectRoot = "";
 			targets = (
 				BF0456CA2B3546100098DE62 /* Notes */,
+				BF0456F02B366E920098DE62 /* NotesTests */,
 			);
 		};
 /* End PBXProject section */
@@ -172,6 +230,13 @@
 			files = (
 				BF0456D62B3546120098DE62 /* Preview Assets.xcassets in Resources */,
 				BF0456D32B3546120098DE62 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BF0456EF2B366E920098DE62 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -194,7 +259,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		BF0456ED2B366E920098DE62 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BF0456FB2B3676D10098DE62 /* NotesViewModelTests.swift in Sources */,
+				BF0456F42B366E920098DE62 /* NoteTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		BF0456F62B366E920098DE62 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BF0456CA2B3546100098DE62 /* Notes */;
+			targetProxy = BF0456F52B366E920098DE62 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		BF0456D72B3546120098DE62 /* Debug */ = {
@@ -374,6 +456,42 @@
 			};
 			name = Release;
 		};
+		BF0456F82B366E920098DE62 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = N346D2C4J7;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.pastelcode.NotesTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Notes.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Notes";
+			};
+			name = Debug;
+		};
+		BF0456F92B366E920098DE62 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = N346D2C4J7;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.pastelcode.NotesTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Notes.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Notes";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -391,6 +509,15 @@
 			buildConfigurations = (
 				BF0456DA2B3546120098DE62 /* Debug */,
 				BF0456DB2B3546120098DE62 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BF0456F72B366E920098DE62 /* Build configuration list for PBXNativeTarget "NotesTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BF0456F82B366E920098DE62 /* Debug */,
+				BF0456F92B366E920098DE62 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
