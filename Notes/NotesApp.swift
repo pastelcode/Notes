@@ -13,5 +13,6 @@ struct NotesApp: App {
         WindowGroup {
             ContentView()
         }
+        .environment(NotesViewModel())
     }
 }
