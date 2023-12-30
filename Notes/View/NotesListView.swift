@@ -36,6 +36,14 @@ struct NotesListView: View {
                 } label: {
                     NoteRow(note: note, dateToShow: dateToSortBy)
                 }
+                .swipeActions {
+                    Button("Remove", systemImage: "trash") {
+                        withAnimation(.spring) {
+                            notesViewModel.removeNoteWith(identifier: note.identifier)
+                        }
+                    }
+                    .tint(.red)
+                }
             }
         }
     }
