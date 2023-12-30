@@ -30,10 +30,6 @@ struct NotesView: View {
                             showCreateNoteView = true
                         }
                         .padding(.top)
-                        .sheet(isPresented: $showCreateNoteView) {
-                            NoteDetailsView()
-                                .interactiveDismissDisabled()
-                        }
                     }
                 } else {
                     NotesListView()
@@ -50,6 +46,10 @@ struct NotesView: View {
                 }
             }
             .navigationTitle("Notes")
+            .sheet(isPresented: $showCreateNoteView) {
+                NoteDetailsView()
+                    .interactiveDismissDisabled()
+            }
         }
     }
 }
