@@ -6,44 +6,64 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct NoteRow: View {
+    // MARK: - View properties
     let note: Note
     let dateToShow: KeyPath<Note, Date>
     
-    init(note: Note, dateToShow: KeyPath<Note, Date> = \.createdAt) {
-        self.note = note
-        self.dateToShow = dateToShow
-    }
-    
+    // MARK: - View body
     var body: some View {
-        VStack(alignment: .leading) {
-            Text(note.title)
-                .lineLimit(1)
-                .foregroundStyle(.primary)
-            if !note.content.isEmpty {
-                Text(note.content)
-                    .lineLimit(3)
+        HStack(alignment: .firstTextBaseline) {
+            Image(systemName: note.iconName)
+                .frame(width: 25)
+                .padding(.trailing)
+            VStack(alignment: .leading) {
+                Text(note.title)
+                    .lineLimit(1)
+                    .foregroundStyle(.primary)
+                if !note.content.isEmpty {
+                    Text(note.content)
+                        .lineLimit(3)
+                        .foregroundStyle(.secondary)
+                        .multilineTextAlignment(.leading)
+                }
+                Text(note[keyPath: dateToShow], style: .date)
                     .foregroundStyle(.secondary)
-                    .multilineTextAlignment(.leading)
+                    .font(.caption)
             }
-            Text(note[keyPath: dateToShow], style: .date)
-                .font(.caption)
         }
     }
 }
 
-#Preview {
+@MainActor private func setupPreview() -> Note {
+    // The container initialized by the notes database must be created before any @Model to avoid the preview to crash
+    let _ = NotesDatabase(inMemory: true)
     let note = Note(
         title: "Título",
         content: "Esta es una nota creada por mí para visualizar en la preview de Xcode y así diseñarla de la mejor manera posible. Esta nota tiene como fin ser presentada en el Canvas.",
-        createdAt: Calendar.current.date(byAdding: .day, value: -1, to: .now)!,
+        iconName: "text.quote",
+        createdAt: Calendar.current.date(
+            byAdding: .day,
+            value: -1,
+            to: .now
+        )!,
         updatedAt: .now
     )
-    
+    return note
+}
+
+#Preview("Raw") {
+    let note = setupPreview()
+    return NoteRow(note: note, dateToShow: \.createdAt)
+}
+
+#Preview("As Navigation Link") {
+    let note = setupPreview()
     return List {
         NavigationLink(value: note) {
-            NoteRow(note: note)
+            NoteRow(note: note, dateToShow: \.updatedAt)
         }
     }
 }

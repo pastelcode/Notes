@@ -6,60 +6,77 @@
 //
 
 import SwiftUI
+import SFSymbolsPicker
 
 struct NoteDetailsView: View {
-    init(note: Note? = nil) {
-        self.note = note
-    }
-    
-    let note: Note?
-    
-    @Environment(NotesViewModel.self) private var notesViewModel
-    @Environment(\.dismiss) private var dismiss
-    
+    // MARK: - Form state properties
     @State private var title = ""
     @State private var content = ""
+    @State private var iconName = ""
+    
+    // MARK: - View properties
+    let note: Note?
+    @Environment(\.dismiss) private var dismiss
+    @Environment(NotesViewModel.self) private var notesViewModel
     @State private var showEmptyTitleError = false
     @State private var showDeleteAlert = false
-    
+    @State private var showIconPicker = false
     
     private var isUpdate: Bool {
         note != nil
     }
     private var isModifiedFromOriginalNote: Bool {
-        title != note?.title || content != note?.content
+        title != note?.title || content != note?.content || iconName != note?.iconName
     }
     
+    // MARK: - Initializers
+    init(note: Note? = nil) {
+        self.note = note
+    }
+    
+    // MARK: - Methods
+    private func generateRandomIconName() -> String {
+        ["figure.wave", "power", "sunset", "moon", "display", "camera.aperture", "square.stack"].randomElement()!
+    }
+    
+    // MARK: - View body
     var body: some View {
         NavigationStack {
-            Form {
-                Section {
-                    TextField("Title (required)", text: $title, axis: .vertical)
-                        .onChange(of: title) { _, newValue in
-                            showEmptyTitleError = newValue.containsOnlyWhitespaces
-                        }
-                    TextField("Description", text: $content, axis: .vertical)
-                } footer: {
-                    if showEmptyTitleError {
-                        HStack {
-                            Spacer()
-                            Image(systemName: "exclamationmark.circle")
-                                .font(.system(size: 20))
-                            VStack(alignment: .leading) {
-                                Text("Title is required")
-                                    .font(.callout)
-                                Text("Enter a value for the title")
-                            }
-                            Spacer()
-                        }
-                        .padding()
-                        .background(.red.opacity(0.15))
-                        .foregroundStyle(.red)
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                        .padding(.top)
-                    }
+            VStack(alignment: .leading) {
+                Button("Select icon", systemImage: iconName) {
+                    showIconPicker = true
                 }
+                .padding(.leading)
+                .padding(.top)
+                .font(.system(size: 40))
+                .labelStyle(.iconOnly)
+                .tint(.primary)
+                .sheet(isPresented: $showIconPicker) {
+                    SymbolsPicker(selection: $iconName, title: "Select note icon", autoDismiss: true)
+                }
+                TextField("Untitled", text: $title, axis: .vertical)
+                    .font(.title)
+                    .bold()
+                    .onChange(of: title) { _, newValue in
+                        showEmptyTitleError = newValue.containsOnlyWhitespaces
+                    }
+                    .padding()
+                if showEmptyTitleError {
+                    HStack {
+                        Image(systemName: "exclamationmark.circle")
+                            .font(.caption)
+                        Text("Title is required")
+                            .font(.caption)
+                    }
+                    .foregroundStyle(.red)
+                    .padding(.horizontal)
+                    .padding(.bottom)
+                }
+                TextField("Content", text: $content, axis: .vertical)
+                    .padding(.horizontal)
+                Spacer()
             }
+            // MARK: Toolbar
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     if !isUpdate {
@@ -79,12 +96,14 @@ struct NoteDetailsView: View {
                                 notesViewModel.updateNoteWith(
                                     identifier: note!.identifier,
                                     title: title.trimmingCharacters(in: .whitespacesAndNewlines),
-                                    content: content.trimmingCharacters(in: .whitespacesAndNewlines)
+                                    content: content.trimmingCharacters(in: .whitespacesAndNewlines),
+                                    iconName: iconName
                                 )
                             } else {
                                 notesViewModel.createNoteWith(
                                     title: title.trimmingCharacters(in: .whitespacesAndNewlines),
-                                    content: content.trimmingCharacters(in: .whitespacesAndNewlines)
+                                    content: content.trimmingCharacters(in: .whitespacesAndNewlines),
+                                    iconName: iconName
                                 )
                             }
                             dismiss()
@@ -100,8 +119,11 @@ struct NoteDetailsView: View {
                     }
                 }
             }
+            // MARK: Navigation bar
             .navigationTitle(isUpdate ? "Note details" : "New note" )
-            .navigationBarTitleDisplayMode(.large)
+            .navigationBarTitleDisplayMode(.inline)
+            
+            // MARK: Alerts
             .alert("Delete note", isPresented: $showDeleteAlert) {
                 Button("Cancel", role: .cancel) { }
                 Button("Delete", role: .destructive) {
@@ -110,17 +132,14 @@ struct NoteDetailsView: View {
                 }
             }
         }
+        // MARK: Initialization of form state properties with incoming note to update
         .onAppear {
             if let note {
                 title = note.title
                 content = note.content
             }
+            iconName = note?.iconName ?? generateRandomIconName()
         }
-    }
-    
-    private enum FocusedField {
-        case title
-        case description
     }
 }
 
@@ -130,8 +149,14 @@ struct NoteDetailsView: View {
 }
 
 #Preview("Update") {
-    NoteDetailsView(
-        note: .init(title: "Old title", content: "Old description", createdAt: .now, updatedAt: .now)
+    let _ = NotesDatabase(inMemory: true)
+    let note = Note(
+        title: "Old title",
+        content: "Old description",
+        iconName: "graduationcap",
+        createdAt: .now,
+        updatedAt: .now
     )
-    .environment(NotesViewModel())
+    return NoteDetailsView(note: note)
+        .environment(NotesViewModel())
 }
