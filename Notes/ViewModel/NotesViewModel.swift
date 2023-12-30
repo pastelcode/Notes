@@ -11,6 +11,7 @@ import Observation
 @Observable final class NotesViewModel {
     @ObservationIgnored @Service private var createNoteUseCase: CreateNoteUseCase
     @ObservationIgnored @Service private var fetchAllNotesUseCase: FetchAllNotesUseCase
+    @ObservationIgnored @Service private var updateNoteUseCase: UpdateNoteUseCase
     
     var notes: [Note]
     var sortNotesBy: KeyPath<Note, Date> = \.createdAt
@@ -40,15 +41,11 @@ import Observation
     }
     
     func updateNoteWith(identifier: UUID, title: String, content: String, iconName: String) {
-        if let noteIndex = notes.firstIndex(where: { $0.identifier == identifier }) {
-            let updatedNote = Note(
-                title: title,
-                content: content,
-                iconName: iconName,
-                createdAt: notes[noteIndex].createdAt,
-                updatedAt: .now
-            )
-            notes[noteIndex] = updatedNote
+        do {
+            try updateNoteUseCase.updateNoteWith(identifier: identifier, title: title, content: content, iconName: iconName)
+            // It's not necessary to fetch notes again due to SwiftData observation feature.
+        } catch {
+            print("Error: \(error.localizedDescription)")
         }
     }
     

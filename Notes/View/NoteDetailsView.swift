@@ -1,5 +1,5 @@
 //
-//  CreateNoteView.swift
+//  NoteDetailsView.swift
 //  Notes
 //
 //  Created by Samuel Marroquín on 12/22/23.

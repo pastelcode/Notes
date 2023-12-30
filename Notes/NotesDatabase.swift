@@ -18,6 +18,7 @@ enum NotesDatabaseError: Error {
 protocol NotesDatabaseProtocol {
     func insert(note: Note) throws
     func fetchAll(sortBy: KeyPath<Note, Date>) throws -> [Note]
+    func updateWith(identifier: UUID, title: String, content: String, iconName: String) throws
 }
 
 final class NotesDatabase: NotesDatabaseProtocol {
@@ -54,6 +55,24 @@ final class NotesDatabase: NotesDatabaseProtocol {
         } catch {
             print("Failed to fetch all notes: \(error.localizedDescription)")
             throw NotesDatabaseError.fetch
+        }
+    }
+    
+    @MainActor func updateWith(identifier: UUID, title: String, content: String, iconName: String) throws {
+        let fetchDescriptor = FetchDescriptor<Note>(predicate: #Predicate { note in
+            note.identifier == identifier
+        })
+        do {
+            if let note = try container.mainContext.fetch(fetchDescriptor).first {
+                note.title = title
+                note.content = content
+                note.iconName = iconName
+                note.updatedAt = .now
+            }
+            try container.mainContext.save()
+        } catch {
+            print("Failed to update note: \(error.localizedDescription)")
+            throw NotesDatabaseError.update
         }
     }
 }
