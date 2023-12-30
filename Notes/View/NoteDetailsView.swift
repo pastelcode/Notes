@@ -9,18 +9,25 @@ import SwiftUI
 import SFSymbolsPicker
 
 struct NoteDetailsView: View {
+    private enum FocusedField: Hashable {
+        case title
+        case content
+    }
+    
     // MARK: - Form state properties
     @State private var title = ""
     @State private var content = ""
-    @State private var iconName = ""
+    @State private var iconName = "note"
     
     // MARK: - View properties
     let note: Note?
     @Environment(\.dismiss) private var dismiss
     @Environment(NotesViewModel.self) private var notesViewModel
+    @Environment(HapticsViewModel.self) private var hapticsViewModel
     @State private var showEmptyTitleError = false
     @State private var showDeleteAlert = false
     @State private var showIconPicker = false
+    @FocusState private var focusedField: FocusedField?
     
     private var isUpdate: Bool {
         note != nil
@@ -42,11 +49,33 @@ struct NoteDetailsView: View {
         ["figure.wave", "power", "sunset", "moon", "display", "camera.aperture", "square.stack"].randomElement()!
     }
     
+    private func saveNote() {
+        guard !title.containsOnlyWhitespaces else {
+            showEmptyTitleError = true
+            return;
+        }
+        if (isUpdate) {
+            notesViewModel.updateNoteWith(
+                identifier: note!.identifier,
+                title: title.trimmingCharacters(in: .whitespacesAndNewlines),
+                content: content.trimmingCharacters(in: .whitespacesAndNewlines),
+                iconName: iconName
+            )
+        } else {
+            notesViewModel.createNoteWith(
+                title: title.trimmingCharacters(in: .whitespacesAndNewlines),
+                content: content.trimmingCharacters(in: .whitespacesAndNewlines),
+                iconName: iconName
+            )
+        }
+    }
+    
     // MARK: - View body
     var body: some View {
         NavigationStack {
             VStack(alignment: .leading) {
                 Button("Select icon", systemImage: iconName) {
+                    hapticsViewModel.impact(.light)
                     showIconPicker = true
                 }
                 .padding(.leading)
@@ -57,13 +86,16 @@ struct NoteDetailsView: View {
                 .sheet(isPresented: $showIconPicker) {
                     SymbolsPicker(selection: $iconName, title: "Select note icon", autoDismiss: true)
                 }
+                
                 TextField("Untitled", text: $title, axis: .vertical)
                     .font(.title)
                     .bold()
+                    .padding()
                     .onChange(of: title) { _, newValue in
                         showEmptyTitleError = newValue.containsOnlyWhitespaces
                     }
-                    .padding()
+                    .focused($focusedField, equals: .title)
+                
                 if showEmptyTitleError {
                     HStack {
                         Image(systemName: "exclamationmark.circle")
@@ -75,8 +107,11 @@ struct NoteDetailsView: View {
                     .padding(.horizontal)
                     .padding(.bottom)
                 }
+                
                 TextField("Content", text: $content, axis: .vertical)
                     .padding(.horizontal)
+                    .focused($focusedField, equals: .content)
+                
                 Spacer()
             }
             // MARK: Toolbar
@@ -91,24 +126,8 @@ struct NoteDetailsView: View {
                 ToolbarItem(placement: .confirmationAction) {
                     if isModifiedFromOriginalNote {
                         Button(isUpdate ? "Update" : "Create") {
-                            guard !title.containsOnlyWhitespaces else {
-                                showEmptyTitleError = true
-                                return;
-                            }
-                            if (isUpdate) {
-                                notesViewModel.updateNoteWith(
-                                    identifier: note!.identifier,
-                                    title: title.trimmingCharacters(in: .whitespacesAndNewlines),
-                                    content: content.trimmingCharacters(in: .whitespacesAndNewlines),
-                                    iconName: iconName
-                                )
-                            } else {
-                                notesViewModel.createNoteWith(
-                                    title: title.trimmingCharacters(in: .whitespacesAndNewlines),
-                                    content: content.trimmingCharacters(in: .whitespacesAndNewlines),
-                                    iconName: iconName
-                                )
-                            }
+                            saveNote()
+                            hapticsViewModel.vibrate(.success)
                             dismiss()
                         }
                         .disabled(isTitleEmpty)
@@ -143,6 +162,7 @@ struct NoteDetailsView: View {
                 content = note.content
             }
             iconName = note?.iconName ?? generateRandomIconName()
+            focusedField = .title
         }
     }
 }
@@ -150,6 +170,7 @@ struct NoteDetailsView: View {
 #Preview("Creation") {
     NoteDetailsView()
         .environment(NotesViewModel())
+        .environment(HapticsViewModel())
 }
 
 #Preview("Update") {

@@ -17,6 +17,7 @@ struct NotesApp: App {
             ContentView()
         }
         .environment(NotesViewModel())
+        .environment(HapticsViewModel())
     }
     
     @MainActor func setupServiceContainer() {

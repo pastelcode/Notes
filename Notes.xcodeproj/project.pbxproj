@@ -30,6 +30,7 @@
 		BF04570E2B3F3C750098DE62 /* SFSymbolsPicker in Frameworks */ = {isa = PBXBuildFile; productRef = BF04570D2B3F3C750098DE62 /* SFSymbolsPicker */; };
 		BF0457102B3FD36B0098DE62 /* UpdateNoteUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF04570F2B3FD36B0098DE62 /* UpdateNoteUseCase.swift */; };
 		BF0457122B3FDF0B0098DE62 /* RemoveNoteUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0457112B3FDF0B0098DE62 /* RemoveNoteUseCase.swift */; };
+		BFCD23322B40BF2A00D4E03C /* HapticsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCD23312B40BF2A00D4E03C /* HapticsViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +69,7 @@
 		BF04570A2B3A276B0098DE62 /* AppLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLauncher.swift; sourceTree = "<group>"; };
 		BF04570F2B3FD36B0098DE62 /* UpdateNoteUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateNoteUseCase.swift; sourceTree = "<group>"; };
 		BF0457112B3FDF0B0098DE62 /* RemoveNoteUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveNoteUseCase.swift; sourceTree = "<group>"; };
+		BFCD23312B40BF2A00D4E03C /* HapticsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticsViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +151,7 @@
 			isa = PBXGroup;
 			children = (
 				BF0456E02B3549B60098DE62 /* NotesViewModel.swift */,
+				BFCD23312B40BF2A00D4E03C /* HapticsViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -301,6 +304,7 @@
 				BF0457022B3762600098DE62 /* FetchAllNotesUseCase.swift in Sources */,
 				BF04570B2B3A276B0098DE62 /* AppLauncher.swift in Sources */,
 				BF0457122B3FDF0B0098DE62 /* RemoveNoteUseCase.swift in Sources */,
+				BFCD23322B40BF2A00D4E03C /* HapticsViewModel.swift in Sources */,
 				BF0457092B38CDDD0098DE62 /* ServicePropertyWrapper.swift in Sources */,
 				BF0456CF2B3546100098DE62 /* NotesApp.swift in Sources */,
 				BF0456EC2B36422D0098DE62 /* NoteRow.swift in Sources */,
