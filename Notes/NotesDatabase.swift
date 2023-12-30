@@ -19,6 +19,7 @@ protocol NotesDatabaseProtocol {
     func insert(note: Note) throws
     func fetchAll(sortBy: KeyPath<Note, Date>) throws -> [Note]
     func updateWith(identifier: UUID, title: String, content: String, iconName: String) throws
+    func removeWith(identifier: UUID) throws
 }
 
 final class NotesDatabase: NotesDatabaseProtocol {
@@ -73,6 +74,18 @@ final class NotesDatabase: NotesDatabaseProtocol {
         } catch {
             print("Failed to update note: \(error.localizedDescription)")
             throw NotesDatabaseError.update
+        }
+    }
+    
+    @MainActor func removeWith(identifier: UUID) throws {
+        do {
+            try container.mainContext.delete(model: Note.self, where: #Predicate { note in
+                note.identifier == identifier
+            })
+            try container.mainContext.save()
+        } catch {
+            print("Failed to remove note: \(error.localizedDescription)")
+            throw NotesDatabaseError.remove
         }
     }
 }

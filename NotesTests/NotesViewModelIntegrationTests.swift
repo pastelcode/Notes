@@ -19,6 +19,7 @@ final class NotesViewModelIntegrationTests: XCTestCase {
         ServiceContainer.register(type: CreateNoteUseCase.self, using: CreateNoteUseCase())
         ServiceContainer.register(type: FetchAllNotesUseCase.self, using: FetchAllNotesUseCase())
         ServiceContainer.register(type: UpdateNoteUseCase.self, using: UpdateNoteUseCase())
+        ServiceContainer.register(type: RemoveNoteUseCase.self, using: RemoveNoteUseCase())
         sut = .init()
     }
 
@@ -116,10 +117,27 @@ final class NotesViewModelIntegrationTests: XCTestCase {
         }
         
         // Then
-        print(sut.notes.first?.content)
         XCTAssertEqual(sut.notes.count, 1)
         XCTAssertEqual(sut.notes.first?.title, newTitle)
         XCTAssertEqual(sut.notes.first?.content, newContent)
         XCTAssertEqual(sut.notes.first?.iconName, newIconName)
+    }
+    
+    func testRemoveNote() {
+        // Given
+        let title = "Test Title"
+        let content = "Test Content"
+        let iconName = "person.bubble"
+        sut.createNoteWith(title: title, content: content, iconName: iconName)
+        
+        // When
+        if let identifier = sut.notes.first?.identifier {
+            sut.removeNoteWith(identifier: identifier)
+        } else {
+            XCTFail("No note was created.")
+        }
+        
+        // Then
+        XCTAssertEqual(sut.notes.count, 0)
     }
 }

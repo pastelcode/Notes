@@ -29,6 +29,7 @@
 		BF04570B2B3A276B0098DE62 /* AppLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF04570A2B3A276B0098DE62 /* AppLauncher.swift */; };
 		BF04570E2B3F3C750098DE62 /* SFSymbolsPicker in Frameworks */ = {isa = PBXBuildFile; productRef = BF04570D2B3F3C750098DE62 /* SFSymbolsPicker */; };
 		BF0457102B3FD36B0098DE62 /* UpdateNoteUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF04570F2B3FD36B0098DE62 /* UpdateNoteUseCase.swift */; };
+		BF0457122B3FDF0B0098DE62 /* RemoveNoteUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0457112B3FDF0B0098DE62 /* RemoveNoteUseCase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +67,7 @@
 		BF0457082B38CDDD0098DE62 /* ServicePropertyWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicePropertyWrapper.swift; sourceTree = "<group>"; };
 		BF04570A2B3A276B0098DE62 /* AppLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLauncher.swift; sourceTree = "<group>"; };
 		BF04570F2B3FD36B0098DE62 /* UpdateNoteUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateNoteUseCase.swift; sourceTree = "<group>"; };
+		BF0457112B3FDF0B0098DE62 /* RemoveNoteUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveNoteUseCase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +120,7 @@
 				BF0456D42B3546120098DE62 /* Preview Content */,
 				BF0456E72B360BDC0098DE62 /* Utils.swift */,
 				BF0456FD2B3754EF0098DE62 /* NotesDatabase.swift */,
+				BF0457112B3FDF0B0098DE62 /* RemoveNoteUseCase.swift */,
 				BF04570F2B3FD36B0098DE62 /* UpdateNoteUseCase.swift */,
 				BF0456FF2B3761700098DE62 /* CreateNoteUseCase.swift */,
 				BF0457012B3762600098DE62 /* FetchAllNotesUseCase.swift */,
@@ -297,6 +300,7 @@
 				BF0456D12B3546100098DE62 /* ContentView.swift in Sources */,
 				BF0457022B3762600098DE62 /* FetchAllNotesUseCase.swift in Sources */,
 				BF04570B2B3A276B0098DE62 /* AppLauncher.swift in Sources */,
+				BF0457122B3FDF0B0098DE62 /* RemoveNoteUseCase.swift in Sources */,
 				BF0457092B38CDDD0098DE62 /* ServicePropertyWrapper.swift in Sources */,
 				BF0456CF2B3546100098DE62 /* NotesApp.swift in Sources */,
 				BF0456EC2B36422D0098DE62 /* NoteRow.swift in Sources */,

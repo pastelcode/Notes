@@ -12,6 +12,7 @@ import Observation
     @ObservationIgnored @Service private var createNoteUseCase: CreateNoteUseCase
     @ObservationIgnored @Service private var fetchAllNotesUseCase: FetchAllNotesUseCase
     @ObservationIgnored @Service private var updateNoteUseCase: UpdateNoteUseCase
+    @ObservationIgnored @Service private var removeNoteUseCase: RemoveNoteUseCase
     
     var notes: [Note]
     var sortNotesBy: KeyPath<Note, Date> = \.createdAt
@@ -50,6 +51,11 @@ import Observation
     }
     
     func removeNoteWith(identifier: UUID) {
-        notes.removeAll { $0.identifier == identifier }
+        do {
+            try removeNoteUseCase.removeNoteWith(identifier: identifier)
+            fetchAllNotes()
+        } catch {
+            print("Error: \(error.localizedDescription)")
+        }
     }
 }

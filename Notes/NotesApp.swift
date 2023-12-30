@@ -24,5 +24,6 @@ struct NotesApp: App {
         ServiceContainer.register(type: CreateNoteUseCase.self, using: CreateNoteUseCase())
         ServiceContainer.register(type: FetchAllNotesUseCase.self, using: FetchAllNotesUseCase())
         ServiceContainer.register(type: UpdateNoteUseCase.self, using: UpdateNoteUseCase())
+        ServiceContainer.register(type: RemoveNoteUseCase.self, using: RemoveNoteUseCase())
     }
 }
