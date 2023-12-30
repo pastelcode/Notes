@@ -7,12 +7,21 @@
 
 import SwiftUI
 
-@main
 struct NotesApp: App {
+    init() {
+        setupServiceContainer()
+    }
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
         }
         .environment(NotesViewModel())
+    }
+    
+    @MainActor func setupServiceContainer() {
+        ServiceContainer.register(type: NotesDatabaseProtocol.self, using: NotesDatabase())
+        ServiceContainer.register(type: CreateNoteUseCase.self, using: CreateNoteUseCase())
+        ServiceContainer.register(type: FetchAllNotesUseCase.self, using: FetchAllNotesUseCase())
     }
 }
