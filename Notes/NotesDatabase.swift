@@ -8,7 +8,7 @@
 import Foundation
 import SwiftData
 
-enum DatabaseError: Error {
+enum NotesDatabaseError: Error {
     case insert
     case fetch
     case update
@@ -21,41 +21,39 @@ protocol NotesDatabaseProtocol {
 }
 
 final class NotesDatabase: NotesDatabaseProtocol {
-    static let shared = NotesDatabase()
+    @MainActor private let container: ModelContainer
     
-    @MainActor var container = setupContainer()
+    @MainActor init(inMemory: Bool = false) {
+        container = NotesDatabase.setupContainer(inMemory: inMemory)
+    }
     
-    private init() { }
-    
-    @MainActor static func setupContainer(inMemory: Bool = false) -> ModelContainer {
+    @MainActor private static func setupContainer(inMemory: Bool) -> ModelContainer {
         do {
             let container = try ModelContainer(for: Note.self, configurations: ModelConfiguration(isStoredInMemoryOnly: inMemory))
             container.mainContext.autosaveEnabled = true
             return container
         } catch {
-            fatalError("Error creating SwiftData ModelContainer: \(error.localizedDescription)")
+            fatalError("Failed to create model container: \(error.localizedDescription)")
         }
     }
     
     @MainActor func insert(note: Note) throws {
         container.mainContext.insert(note)
-        
         do {
             try container.mainContext.save()
         } catch {
-            print("Error: \(error.localizedDescription)")
-            throw DatabaseError.insert
+            print("Failed to insert note: \(error.localizedDescription)")
+            throw NotesDatabaseError.insert
         }
     }
     
     @MainActor func fetchAll(sortBy: KeyPath<Note, Date>) throws -> [Note] {
         let fetchDescriptor = FetchDescriptor<Note>(sortBy: [SortDescriptor<Note>(sortBy)])
-        
         do {
             return try container.mainContext.fetch(fetchDescriptor)
         } catch {
-            print("Error: \(error.localizedDescription)")
-            throw DatabaseError.fetch
+            print("Failed to fetch all notes: \(error.localizedDescription)")
+            throw NotesDatabaseError.fetch
         }
     }
 }

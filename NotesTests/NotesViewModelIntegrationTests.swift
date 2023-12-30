@@ -14,9 +14,11 @@ final class NotesViewModelIntegrationTests: XCTestCase {
     
     @MainActor override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        let database = NotesDatabase.shared
-        database.container = NotesDatabase.setupContainer(inMemory: true)
-        sut = .init(createNoteUseCase: .init(notesDataBase: database), fetchAllNotesUseCase: .init(notesDataBase: database))
+        ServiceContainer.clear()
+        ServiceContainer.register(type: NotesDatabaseProtocol.self, using: NotesDatabase(inMemory: true))
+        ServiceContainer.register(type: CreateNoteUseCase.self, using: CreateNoteUseCase())
+        ServiceContainer.register(type: FetchAllNotesUseCase.self, using: FetchAllNotesUseCase())
+        sut = .init()
     }
 
     override func tearDownWithError() throws {
@@ -30,7 +32,7 @@ final class NotesViewModelIntegrationTests: XCTestCase {
         sut.createNoteWith(title: title, content: content)
         
         // When
-        let note = sut.notes.first
+        let note = self.sut.notes.first
         
         // Then
         XCTAssertNotNil(note, "Note must exist")

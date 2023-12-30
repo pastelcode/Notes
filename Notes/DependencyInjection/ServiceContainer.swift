@@ -8,7 +8,7 @@
 import Foundation
 
 final class ServiceContainer {
-    enum ServiceType {
+    enum ResolveType {
         case singleton
         case new
     }
@@ -16,20 +16,24 @@ final class ServiceContainer {
     private static var servicesFactories: [String: () -> Any] = [:]
     private static var cachedServices: [String: Any] = [:]
     
-    static func register<Service>(_ type: Service.Type, _ factory: @autoclosure @escaping () -> Service) {
-        servicesFactories[String(describing: type.self)] = factory
+    static func register<Service>(type: Service.Type, using factory: @autoclosure @escaping () -> Service) {
+        let serviceName = String(describing: type.self)
+        servicesFactories[serviceName] = factory
+        print("Service '\(serviceName)' registered.")
     }
     
-    static func resolve<Service>(_ resolveType: ServiceType = .singleton, _ type: Service.Type) -> Service? {
+    static func resolve<Service>(type: Service.Type, as resolveType: ResolveType) -> Service? {
         let serviceName = String(describing: type.self)
         
         switch resolveType {
         case .singleton:
             if let service = cachedServices[serviceName] as? Service {
+                print("\(serviceName) resolved from cache.")
                 return service
             }
             if let service = servicesFactories[serviceName]?() as? Service {
                 cachedServices[serviceName] = service
+                print("\(serviceName) resolved from factory.")
                 return service
             }
             return nil
@@ -37,26 +41,9 @@ final class ServiceContainer {
             return servicesFactories[serviceName]?() as? Service
         }
     }
-}
-
-@propertyWrapper struct Service<Service> {
-    var wrappedValue: Service {
-        get {
-            self.service
-        }
-        
-        mutating set {
-            service = newValue
-        }
-    }
     
-    var service: Service
-    
-    init(_ type: ServiceContainer.ServiceType = .singleton) {
-        guard let service = ServiceContainer.resolve(type, Service.self) else {
-            let serviceName = String(describing: Service.self)
-            fatalError("No service of type \(serviceName) registered.")
-        }
-        self.service = service
+    static func clear() {
+        cachedServices.removeAll()
+        servicesFactories.removeAll()
     }
 }

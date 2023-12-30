@@ -8,14 +8,10 @@
 import Foundation
 
 struct CreateNoteUseCase {
-    var notesDataBase: NotesDatabaseProtocol
-    
-    init(notesDataBase: NotesDatabaseProtocol = NotesDatabase.shared) {
-        self.notesDataBase = notesDataBase
-    }
-    
-    func createNoteWith(title: String, content: String) throws {
-        let note = Note(title: title, content: content, createdAt: .now, updatedAt: .now)
-        try notesDataBase.insert(note: note)
+    @Service private var database: NotesDatabaseProtocol
+       
+    func createNoteWith(title: String, content: String, iconName: String) throws {
+        let note = Note(title: title, content: content, iconName: iconName, createdAt: .now, updatedAt: .now)
+        try database.insert(note: note)
     }
 }

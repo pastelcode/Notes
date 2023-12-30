@@ -6,24 +6,25 @@
 //
 
 import Foundation
+import Observation
 
 @Observable final class NotesViewModel {
+    @ObservationIgnored @Service private var createNoteUseCase: CreateNoteUseCase
+    @ObservationIgnored @Service private var fetchAllNotesUseCase: FetchAllNotesUseCase
+    
     var notes: [Note]
     var sortNotesBy: KeyPath<Note, Date> = \.createdAt
     
-    let createNoteUseCase: CreateNoteUseCase
-    let fetchAllNotesUseCase: FetchAllNotesUseCase
-    
-    init(notes: [Note] = [], createNoteUseCase: CreateNoteUseCase = .init(), fetchAllNotesUseCase: FetchAllNotesUseCase = .init()) {
+    init(notes: [Note] = []) {
         self.notes = notes
-        self.createNoteUseCase = createNoteUseCase
-        self.fetchAllNotesUseCase = fetchAllNotesUseCase
-        fetchAllNotes()
+        if notes.isEmpty {
+            fetchAllNotes()
+        }
     }
     
-    func createNoteWith(title: String, content: String) {
+    func createNoteWith(title: String, content: String, iconName: String) {
         do {
-            try createNoteUseCase.createNoteWith(title: title, content: content)
+            try createNoteUseCase.createNoteWith(title: title, content: content, iconName: iconName)
             fetchAllNotes()
         } catch {
             print("Error: \(error.localizedDescription)")
@@ -38,9 +39,15 @@ import Foundation
         }
     }
     
-    func updateNoteWith(identifier: UUID, title: String, content: String) {
+    func updateNoteWith(identifier: UUID, title: String, content: String, iconName: String) {
         if let noteIndex = notes.firstIndex(where: { $0.identifier == identifier }) {
-            let updatedNote = Note(title: title, content: content, createdAt: notes[noteIndex].createdAt, updatedAt: .now)
+            let updatedNote = Note(
+                title: title,
+                content: content,
+                iconName: iconName,
+                createdAt: notes[noteIndex].createdAt,
+                updatedAt: .now
+            )
             notes[noteIndex] = updatedNote
         }
     }

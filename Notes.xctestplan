@@ -9,6 +9,14 @@
     }
   ],
   "defaultOptions" : {
+    "commandLineArgumentEntries" : [
+      {
+        "argument" : "isTesting"
+      }
+    ],
+    "environmentVariableEntries" : [
+
+    ],
     "targetForVariableExpansion" : {
       "containerPath" : "container:Notes.xcodeproj",
       "identifier" : "BF0456CA2B3546100098DE62",

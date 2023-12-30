@@ -24,6 +24,10 @@
 		BF0457002B3761700098DE62 /* CreateNoteUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0456FF2B3761700098DE62 /* CreateNoteUseCase.swift */; };
 		BF0457022B3762600098DE62 /* FetchAllNotesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0457012B3762600098DE62 /* FetchAllNotesUseCase.swift */; };
 		BF0457042B3766940098DE62 /* NotesViewModelIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0457032B3766940098DE62 /* NotesViewModelIntegrationTests.swift */; };
+		BF0457062B38BC390098DE62 /* ServiceContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0457052B38BC390098DE62 /* ServiceContainer.swift */; };
+		BF0457092B38CDDD0098DE62 /* ServicePropertyWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0457082B38CDDD0098DE62 /* ServicePropertyWrapper.swift */; };
+		BF04570B2B3A276B0098DE62 /* AppLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF04570A2B3A276B0098DE62 /* AppLauncher.swift */; };
+		BF04570E2B3F3C750098DE62 /* SFSymbolsPicker in Frameworks */ = {isa = PBXBuildFile; productRef = BF04570D2B3F3C750098DE62 /* SFSymbolsPicker */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +61,9 @@
 		BF0456FF2B3761700098DE62 /* CreateNoteUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNoteUseCase.swift; sourceTree = "<group>"; };
 		BF0457012B3762600098DE62 /* FetchAllNotesUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchAllNotesUseCase.swift; sourceTree = "<group>"; };
 		BF0457032B3766940098DE62 /* NotesViewModelIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesViewModelIntegrationTests.swift; sourceTree = "<group>"; };
+		BF0457052B38BC390098DE62 /* ServiceContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceContainer.swift; sourceTree = "<group>"; };
+		BF0457082B38CDDD0098DE62 /* ServicePropertyWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicePropertyWrapper.swift; sourceTree = "<group>"; };
+		BF04570A2B3A276B0098DE62 /* AppLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLauncher.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BF04570E2B3F3C750098DE62 /* SFSymbolsPicker in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -103,12 +111,14 @@
 				BF0456DF2B3549AB0098DE62 /* ViewModel */,
 				BF0456DC2B3547FA0098DE62 /* Model */,
 				BF0456CE2B3546100098DE62 /* NotesApp.swift */,
+				BF04570A2B3A276B0098DE62 /* AppLauncher.swift */,
 				BF0456D22B3546120098DE62 /* Assets.xcassets */,
 				BF0456D42B3546120098DE62 /* Preview Content */,
 				BF0456E72B360BDC0098DE62 /* Utils.swift */,
 				BF0456FD2B3754EF0098DE62 /* NotesDatabase.swift */,
 				BF0456FF2B3761700098DE62 /* CreateNoteUseCase.swift */,
 				BF0457012B3762600098DE62 /* FetchAllNotesUseCase.swift */,
+				BF0457072B38CD330098DE62 /* DependencyInjection */,
 			);
 			path = Notes;
 			sourceTree = "<group>";
@@ -159,6 +169,15 @@
 			path = NotesTests;
 			sourceTree = "<group>";
 		};
+		BF0457072B38CD330098DE62 /* DependencyInjection */ = {
+			isa = PBXGroup;
+			children = (
+				BF0457052B38BC390098DE62 /* ServiceContainer.swift */,
+				BF0457082B38CDDD0098DE62 /* ServicePropertyWrapper.swift */,
+			);
+			path = DependencyInjection;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -175,6 +194,9 @@
 			dependencies = (
 			);
 			name = Notes;
+			packageProductDependencies = (
+				BF04570D2B3F3C750098DE62 /* SFSymbolsPicker */,
+			);
 			productName = Notes;
 			productReference = BF0456CB2B3546100098DE62 /* Notes.app */;
 			productType = "com.apple.product-type.application";
@@ -225,6 +247,9 @@
 				Base,
 			);
 			mainGroup = BF0456C22B3546100098DE62;
+			packageReferences = (
+				BF04570C2B3F3C750098DE62 /* XCRemoteSwiftPackageReference "SFSymbolsPickerForSwiftUI" */,
+			);
 			productRefGroup = BF0456CC2B3546100098DE62 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -262,10 +287,13 @@
 				BF0456E42B3550810098DE62 /* NotesListView.swift in Sources */,
 				BF0456E12B3549B60098DE62 /* NotesViewModel.swift in Sources */,
 				BF0456FE2B3754EF0098DE62 /* NotesDatabase.swift in Sources */,
+				BF0457062B38BC390098DE62 /* ServiceContainer.swift in Sources */,
 				BF0456E62B35F5750098DE62 /* NoteDetailsView.swift in Sources */,
 				BF0456E82B360BDC0098DE62 /* Utils.swift in Sources */,
 				BF0456D12B3546100098DE62 /* ContentView.swift in Sources */,
 				BF0457022B3762600098DE62 /* FetchAllNotesUseCase.swift in Sources */,
+				BF04570B2B3A276B0098DE62 /* AppLauncher.swift in Sources */,
+				BF0457092B38CDDD0098DE62 /* ServicePropertyWrapper.swift in Sources */,
 				BF0456CF2B3546100098DE62 /* NotesApp.swift in Sources */,
 				BF0456EC2B36422D0098DE62 /* NoteRow.swift in Sources */,
 				BF0457002B3761700098DE62 /* CreateNoteUseCase.swift in Sources */,
@@ -539,6 +567,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		BF04570C2B3F3C750098DE62 /* XCRemoteSwiftPackageReference "SFSymbolsPickerForSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/alessiorubicini/SFSymbolsPickerForSwiftUI";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.4;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		BF04570D2B3F3C750098DE62 /* SFSymbolsPicker */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BF04570C2B3F3C750098DE62 /* XCRemoteSwiftPackageReference "SFSymbolsPickerForSwiftUI" */;
+			productName = SFSymbolsPicker;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = BF0456C32B3546100098DE62 /* Project object */;
 }
