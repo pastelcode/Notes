@@ -28,6 +28,9 @@ struct NoteDetailsView: View {
     private var isModifiedFromOriginalNote: Bool {
         title != note?.title || content != note?.content || iconName != note?.iconName
     }
+    private var isTitleEmpty: Bool {
+        title.containsOnlyWhitespaces
+    }
     
     // MARK: - Initializers
     init(note: Note? = nil) {
@@ -108,6 +111,7 @@ struct NoteDetailsView: View {
                             }
                             dismiss()
                         }
+                        .disabled(isTitleEmpty)
                     }
                 }
                 if isUpdate {
