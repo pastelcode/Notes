@@ -8,7 +8,7 @@
 import Foundation
 
 extension String {
-    var containsOnlyWhitespaces: Bool {
-        trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
-    }
+  var containsOnlyWhitespaces: Bool {
+    trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+  }
 }

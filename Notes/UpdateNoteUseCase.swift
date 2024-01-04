@@ -8,9 +8,14 @@
 import Foundation
 
 struct UpdateNoteUseCase {
-    @Service private var database: NotesDatabaseProtocol
-    
-    func updateNoteWith(identifier: UUID, title: String, content: String, iconName: String) throws {
-        try database.updateWith(identifier: identifier, title: title, content: content, iconName: iconName)
-    }
+  @Service private var database: NotesDatabaseProtocol
+
+  func updateNoteWith(identifier: UUID, title: String, content: String, iconName: String) throws {
+    try database.updateWith(
+      identifier: identifier,
+      title: title,
+      content: content,
+      iconName: iconName
+    )
+  }
 }
