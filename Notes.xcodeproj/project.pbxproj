@@ -30,6 +30,7 @@
 		BF04570E2B3F3C750098DE62 /* SFSymbolsPicker in Frameworks */ = {isa = PBXBuildFile; productRef = BF04570D2B3F3C750098DE62 /* SFSymbolsPicker */; };
 		BF0457102B3FD36B0098DE62 /* UpdateNoteUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF04570F2B3FD36B0098DE62 /* UpdateNoteUseCase.swift */; };
 		BF0457122B3FDF0B0098DE62 /* RemoveNoteUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0457112B3FDF0B0098DE62 /* RemoveNoteUseCase.swift */; };
+		BF60607A2B4915340068057B /* EmptyNotesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6060792B4915340068057B /* EmptyNotesListView.swift */; };
 		BFCD23322B40BF2A00D4E03C /* HapticsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCD23312B40BF2A00D4E03C /* HapticsViewModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -69,6 +70,7 @@
 		BF04570A2B3A276B0098DE62 /* AppLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLauncher.swift; sourceTree = "<group>"; };
 		BF04570F2B3FD36B0098DE62 /* UpdateNoteUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateNoteUseCase.swift; sourceTree = "<group>"; };
 		BF0457112B3FDF0B0098DE62 /* RemoveNoteUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveNoteUseCase.swift; sourceTree = "<group>"; };
+		BF6060792B4915340068057B /* EmptyNotesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyNotesListView.swift; sourceTree = "<group>"; };
 		BFCD23312B40BF2A00D4E03C /* HapticsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticsViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -164,6 +166,7 @@
 				BF0456EB2B36422D0098DE62 /* NoteRow.swift */,
 				BF0456E52B35F5750098DE62 /* NoteDetailsView.swift */,
 				BF0456E92B3616920098DE62 /* NotesView.swift */,
+				BF6060792B4915340068057B /* EmptyNotesListView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -306,6 +309,7 @@
 				BF0457122B3FDF0B0098DE62 /* RemoveNoteUseCase.swift in Sources */,
 				BFCD23322B40BF2A00D4E03C /* HapticsViewModel.swift in Sources */,
 				BF0457092B38CDDD0098DE62 /* ServicePropertyWrapper.swift in Sources */,
+				BF60607A2B4915340068057B /* EmptyNotesListView.swift in Sources */,
 				BF0456CF2B3546100098DE62 /* NotesApp.swift in Sources */,
 				BF0456EC2B36422D0098DE62 /* NoteRow.swift in Sources */,
 				BF0457002B3761700098DE62 /* CreateNoteUseCase.swift in Sources */,

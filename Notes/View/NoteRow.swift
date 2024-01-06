@@ -61,9 +61,11 @@ struct NoteRow: View {
 
 #Preview("As Navigation Link") {
   let note = setupPreview()
-  return List {
-    NavigationLink(value: note) {
-      NoteRow(note: note, dateToShow: \.updatedAt)
+  return NavigationStack {
+    List {
+      NavigationLink(value: note) {
+        NoteRow(note: note, dateToShow: \.updatedAt)
+      }
     }
   }
 }
