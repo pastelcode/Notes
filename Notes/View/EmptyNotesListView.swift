@@ -11,7 +11,7 @@ struct EmptyNotesListView: View {
     @Binding var showCreateNoteView: Bool
     @State private var isCreateNoteIconAnimated = false
     @State private var isTrayIconShown = false
-
+    
     var body: some View {
         ContentUnavailableView {
             if isTrayIconShown {

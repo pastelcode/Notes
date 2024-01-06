@@ -46,7 +46,15 @@ struct NoteDetailsView: View {
 
     // MARK: - Methods
     private func generateRandomIconName() -> String {
-        ["figure.wave", "power", "sunset", "moon", "display", "camera.aperture", "square.stack"].randomElement()!
+        [
+            "figure.wave",
+            "power",
+            "sunset",
+            "moon",
+            "display",
+            "camera.aperture",
+            "square.stack"
+        ].randomElement()!
     }
 
     private func saveNote() {
@@ -85,7 +93,11 @@ struct NoteDetailsView: View {
                     .labelStyle(.iconOnly)
                     .tint(.primary)
                     .sheet(isPresented: $showIconPicker) {
-                        SymbolsPicker(selection: $iconName, title: "Select note icon", autoDismiss: true)
+                        SymbolsPicker(
+                            selection: $iconName,
+                            title: "Select note icon",
+                            autoDismiss: true
+                        )
                     }
 
                     TextField("Untitled", text: $title, axis: .vertical)
@@ -152,7 +164,7 @@ struct NoteDetailsView: View {
                         notesViewModel.removeNoteWith(identifier: note!.identifier)
                         dismiss()
                     }
-            }
+                }
             }
         }
         // MARK: Initialization of form state properties with incoming note to update
