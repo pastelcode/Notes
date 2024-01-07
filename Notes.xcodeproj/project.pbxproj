@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		BF0456CF2B3546100098DE62 /* NotesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0456CE2B3546100098DE62 /* NotesApp.swift */; };
 		BF0456D12B3546100098DE62 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0456D02B3546100098DE62 /* ContentView.swift */; };
 		BF0456D32B3546120098DE62 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF0456D22B3546120098DE62 /* Assets.xcassets */; };
 		BF0456D62B3546120098DE62 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF0456D52B3546120098DE62 /* Preview Assets.xcassets */; };
@@ -45,7 +44,6 @@
 
 /* Begin PBXFileReference section */
 		BF0456CB2B3546100098DE62 /* Notes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Notes.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		BF0456CE2B3546100098DE62 /* NotesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesApp.swift; sourceTree = "<group>"; };
 		BF0456D02B3546100098DE62 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		BF0456D22B3546120098DE62 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BF0456D52B3546120098DE62 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -118,7 +116,6 @@
 				BF0456E22B3550740098DE62 /* View */,
 				BF0456DF2B3549AB0098DE62 /* ViewModel */,
 				BF0456DC2B3547FA0098DE62 /* Model */,
-				BF0456CE2B3546100098DE62 /* NotesApp.swift */,
 				BF04570A2B3A276B0098DE62 /* AppLauncher.swift */,
 				BF0456D22B3546120098DE62 /* Assets.xcassets */,
 				BF0456D42B3546120098DE62 /* Preview Content */,
@@ -306,7 +303,6 @@
 				BF0457122B3FDF0B0098DE62 /* RemoveNoteUseCase.swift in Sources */,
 				BFCD23322B40BF2A00D4E03C /* Haptics.swift in Sources */,
 				BF60607A2B4915340068057B /* EmptyNotesListView.swift in Sources */,
-				BF0456CF2B3546100098DE62 /* NotesApp.swift in Sources */,
 				BF0456EC2B36422D0098DE62 /* NoteRow.swift in Sources */,
 				BF0457002B3761700098DE62 /* CreateNoteUseCase.swift in Sources */,
 				BF0456EA2B3616920098DE62 /* NotesView.swift in Sources */,
