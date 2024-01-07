@@ -8,8 +8,8 @@
 import Foundation
 
 struct RemoveNoteUseCase {
-    @Service private var database: NotesDatabaseProtocol
-
+    let database: NotesDatabaseProtocol
+    
     func removeNoteWith(identifier: UUID) throws {
         try database.removeWith(identifier: identifier)
     }

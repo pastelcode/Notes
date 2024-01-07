@@ -22,24 +22,34 @@ protocol NotesDatabaseProtocol {
     func removeWith(identifier: UUID) throws
 }
 
+extension NotesDatabaseProtocol where Self == NotesDatabase {
+    @MainActor static var `default`: NotesDatabase {
+        .init(inMemory: false)
+    }
+
+    @MainActor static var inMemory: NotesDatabase {
+        .init(inMemory: true)
+    }
+}
+
 final class NotesDatabase: NotesDatabaseProtocol {
     @MainActor private let container: ModelContainer
 
     @MainActor init(inMemory: Bool = false) {
-        container = NotesDatabase.setupContainer(inMemory: inMemory)
-    }
-
-    @MainActor private static func setupContainer(inMemory: Bool) -> ModelContainer {
-        do {
-            let container = try ModelContainer(
-                for: Note.self,
-                configurations: ModelConfiguration(isStoredInMemoryOnly: inMemory)
-            )
-            container.mainContext.autosaveEnabled = true
-            return container
-        } catch {
-            fatalError("Failed to create model container: \(error.localizedDescription)")
+        func setupContainer(inMemory: Bool) -> ModelContainer {
+            do {
+                let container = try ModelContainer(
+                    for: Note.self,
+                    configurations: ModelConfiguration(isStoredInMemoryOnly: inMemory)
+                )
+                container.mainContext.autosaveEnabled = true
+                return container
+            } catch {
+                fatalError("Failed to create model container: \(error.localizedDescription)")
+            }
         }
+
+        container = setupContainer(inMemory: inMemory)
     }
 
     @MainActor func insert(note: Note) throws {

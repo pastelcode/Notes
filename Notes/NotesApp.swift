@@ -8,23 +8,10 @@
 import SwiftUI
 
 struct NotesApp: App {
-    init() {
-        setupServiceContainer()
-    }
-    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .withViewModels()
         }
-        .environment(NotesViewModel())
-        .environment(HapticsViewModel())
-    }
-    
-    @MainActor func setupServiceContainer() {
-        ServiceContainer.register(type: NotesDatabaseProtocol.self, using: NotesDatabase())
-        ServiceContainer.register(type: CreateNoteUseCase.self, using: CreateNoteUseCase())
-        ServiceContainer.register(type: FetchAllNotesUseCase.self, using: FetchAllNotesUseCase())
-        ServiceContainer.register(type: UpdateNoteUseCase.self, using: UpdateNoteUseCase())
-        ServiceContainer.register(type: RemoveNoteUseCase.self, using: RemoveNoteUseCase())
     }
 }

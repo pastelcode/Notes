@@ -43,7 +43,7 @@ struct NoteRow: View {
     let _ = NotesDatabase(inMemory: true)
     let note = Note(
         title: "Título",
-        content: NSLocalizedString("Esta es una nota creada por mí para visualizar en la preview de Xcode y así diseñarla de la mejor manera posible. Esta nota tiene como fin ser presentada en el Canvas.", comment: ""),
+        content: "Esta es una nota creada por mí para visualizar en la preview de Xcode y así diseñarla de la mejor manera posible. Esta nota tiene como fin ser presentada en el Canvas.",
         iconName: "text.quote",
         createdAt: Calendar.current.date(
             byAdding: .day,

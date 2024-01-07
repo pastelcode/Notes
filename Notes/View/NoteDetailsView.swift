@@ -22,8 +22,8 @@ struct NoteDetailsView: View {
     // MARK: - View properties
     let note: Note?
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.haptics) private var haptics
     @Environment(NotesViewModel.self) private var notesViewModel
-    @Environment(HapticsViewModel.self) private var hapticsViewModel
     @State private var showEmptyTitleError = false
     @State private var showDeleteAlert = false
     @State private var showIconPicker = false
@@ -84,7 +84,7 @@ struct NoteDetailsView: View {
             ScrollView {
                 VStack(alignment: .leading) {
                     Button("Select icon", systemImage: iconName) {
-                        hapticsViewModel.impact(.light)
+                        haptics.impact(.light)
                         showIconPicker = true
                     }
                     .padding(.leading)
@@ -138,7 +138,7 @@ struct NoteDetailsView: View {
                         if isModifiedFromOriginalNote {
                             Button(isUpdate ? "Update" : "Create") {
                                 saveNote()
-                                hapticsViewModel.vibrate(.success)
+                                haptics.vibrate(.success)
                                 dismiss()
                             }
                             .disabled(isTitleEmpty)
@@ -181,12 +181,11 @@ struct NoteDetailsView: View {
 
 #Preview("Creation") {
     NoteDetailsView()
-        .environment(NotesViewModel())
-        .environment(HapticsViewModel())
+        .environment(NotesViewModel.forTests)
 }
 
 #Preview("Update") {
-    let _ = NotesDatabase(inMemory: true)
+    let viewModel = NotesViewModel.forTests
     let note = Note(
         title: "Old title",
         content: "Old description",
@@ -195,6 +194,5 @@ struct NoteDetailsView: View {
         updatedAt: .now
     )
     return NoteDetailsView(note: note)
-        .environment(NotesViewModel())
-        .environment(HapticsViewModel())
+        .environment(viewModel)
 }

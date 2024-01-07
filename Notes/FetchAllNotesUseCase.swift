@@ -8,7 +8,7 @@
 import Foundation
 
 struct FetchAllNotesUseCase {
-    @Service private var database: NotesDatabaseProtocol
+    let database: NotesDatabaseProtocol
 
     func fetchAll(sortBy: KeyPath<Note, Date>) throws -> [Note] {
         try database.fetchAll(sortBy: sortBy)

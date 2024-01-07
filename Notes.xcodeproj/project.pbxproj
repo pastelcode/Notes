@@ -24,14 +24,13 @@
 		BF0457002B3761700098DE62 /* CreateNoteUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0456FF2B3761700098DE62 /* CreateNoteUseCase.swift */; };
 		BF0457022B3762600098DE62 /* FetchAllNotesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0457012B3762600098DE62 /* FetchAllNotesUseCase.swift */; };
 		BF0457042B3766940098DE62 /* NotesViewModelIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0457032B3766940098DE62 /* NotesViewModelIntegrationTests.swift */; };
-		BF0457062B38BC390098DE62 /* ServiceContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0457052B38BC390098DE62 /* ServiceContainer.swift */; };
-		BF0457092B38CDDD0098DE62 /* ServicePropertyWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0457082B38CDDD0098DE62 /* ServicePropertyWrapper.swift */; };
 		BF04570B2B3A276B0098DE62 /* AppLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF04570A2B3A276B0098DE62 /* AppLauncher.swift */; };
 		BF04570E2B3F3C750098DE62 /* SFSymbolsPicker in Frameworks */ = {isa = PBXBuildFile; productRef = BF04570D2B3F3C750098DE62 /* SFSymbolsPicker */; };
 		BF0457102B3FD36B0098DE62 /* UpdateNoteUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF04570F2B3FD36B0098DE62 /* UpdateNoteUseCase.swift */; };
 		BF0457122B3FDF0B0098DE62 /* RemoveNoteUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0457112B3FDF0B0098DE62 /* RemoveNoteUseCase.swift */; };
 		BF60607A2B4915340068057B /* EmptyNotesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6060792B4915340068057B /* EmptyNotesListView.swift */; };
-		BFCD23322B40BF2A00D4E03C /* HapticsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCD23312B40BF2A00D4E03C /* HapticsViewModel.swift */; };
+		BF60607C2B4945540068057B /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF60607B2B4945540068057B /* Environment.swift */; };
+		BFCD23322B40BF2A00D4E03C /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCD23312B40BF2A00D4E03C /* Haptics.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,13 +64,12 @@
 		BF0456FF2B3761700098DE62 /* CreateNoteUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNoteUseCase.swift; sourceTree = "<group>"; };
 		BF0457012B3762600098DE62 /* FetchAllNotesUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchAllNotesUseCase.swift; sourceTree = "<group>"; };
 		BF0457032B3766940098DE62 /* NotesViewModelIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesViewModelIntegrationTests.swift; sourceTree = "<group>"; };
-		BF0457052B38BC390098DE62 /* ServiceContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceContainer.swift; sourceTree = "<group>"; };
-		BF0457082B38CDDD0098DE62 /* ServicePropertyWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicePropertyWrapper.swift; sourceTree = "<group>"; };
 		BF04570A2B3A276B0098DE62 /* AppLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLauncher.swift; sourceTree = "<group>"; };
 		BF04570F2B3FD36B0098DE62 /* UpdateNoteUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateNoteUseCase.swift; sourceTree = "<group>"; };
 		BF0457112B3FDF0B0098DE62 /* RemoveNoteUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveNoteUseCase.swift; sourceTree = "<group>"; };
 		BF6060792B4915340068057B /* EmptyNotesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyNotesListView.swift; sourceTree = "<group>"; };
-		BFCD23312B40BF2A00D4E03C /* HapticsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticsViewModel.swift; sourceTree = "<group>"; };
+		BF60607B2B4945540068057B /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
+		BFCD23312B40BF2A00D4E03C /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +113,8 @@
 		BF0456CD2B3546100098DE62 /* Notes */ = {
 			isa = PBXGroup;
 			children = (
+				BF60607B2B4945540068057B /* Environment.swift */,
+				BF2AAC0F2B495E6800D0EB38 /* Services */,
 				BF0456E22B3550740098DE62 /* View */,
 				BF0456DF2B3549AB0098DE62 /* ViewModel */,
 				BF0456DC2B3547FA0098DE62 /* Model */,
@@ -128,7 +128,6 @@
 				BF04570F2B3FD36B0098DE62 /* UpdateNoteUseCase.swift */,
 				BF0456FF2B3761700098DE62 /* CreateNoteUseCase.swift */,
 				BF0457012B3762600098DE62 /* FetchAllNotesUseCase.swift */,
-				BF0457072B38CD330098DE62 /* DependencyInjection */,
 			);
 			path = Notes;
 			sourceTree = "<group>";
@@ -153,7 +152,6 @@
 			isa = PBXGroup;
 			children = (
 				BF0456E02B3549B60098DE62 /* NotesViewModel.swift */,
-				BFCD23312B40BF2A00D4E03C /* HapticsViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -181,13 +179,12 @@
 			path = NotesTests;
 			sourceTree = "<group>";
 		};
-		BF0457072B38CD330098DE62 /* DependencyInjection */ = {
+		BF2AAC0F2B495E6800D0EB38 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				BF0457052B38BC390098DE62 /* ServiceContainer.swift */,
-				BF0457082B38CDDD0098DE62 /* ServicePropertyWrapper.swift */,
+				BFCD23312B40BF2A00D4E03C /* Haptics.swift */,
 			);
-			path = DependencyInjection;
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -298,8 +295,8 @@
 			files = (
 				BF0456E42B3550810098DE62 /* NotesListView.swift in Sources */,
 				BF0456E12B3549B60098DE62 /* NotesViewModel.swift in Sources */,
+				BF60607C2B4945540068057B /* Environment.swift in Sources */,
 				BF0456FE2B3754EF0098DE62 /* NotesDatabase.swift in Sources */,
-				BF0457062B38BC390098DE62 /* ServiceContainer.swift in Sources */,
 				BF0457102B3FD36B0098DE62 /* UpdateNoteUseCase.swift in Sources */,
 				BF0456E62B35F5750098DE62 /* NoteDetailsView.swift in Sources */,
 				BF0456E82B360BDC0098DE62 /* Utils.swift in Sources */,
@@ -307,8 +304,7 @@
 				BF0457022B3762600098DE62 /* FetchAllNotesUseCase.swift in Sources */,
 				BF04570B2B3A276B0098DE62 /* AppLauncher.swift in Sources */,
 				BF0457122B3FDF0B0098DE62 /* RemoveNoteUseCase.swift in Sources */,
-				BFCD23322B40BF2A00D4E03C /* HapticsViewModel.swift in Sources */,
-				BF0457092B38CDDD0098DE62 /* ServicePropertyWrapper.swift in Sources */,
+				BFCD23322B40BF2A00D4E03C /* Haptics.swift in Sources */,
 				BF60607A2B4915340068057B /* EmptyNotesListView.swift in Sources */,
 				BF0456CF2B3546100098DE62 /* NotesApp.swift in Sources */,
 				BF0456EC2B36422D0098DE62 /* NoteRow.swift in Sources */,

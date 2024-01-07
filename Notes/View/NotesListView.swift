@@ -50,31 +50,6 @@ struct NotesListView: View {
 }
 
 #Preview {
-    let _ = NotesDatabase(inMemory: true)
-    let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: .now)!
-    let notes = [
-        Note(
-            title: "Hacer mi cama",
-            content: "Componer mi cama",
-            iconName: "backpack",
-            createdAt: yesterday,
-            updatedAt: yesterday
-        ),
-        Note(
-            title: "Hacer cita en Visualiza",
-            iconName: "ruler",
-            createdAt: yesterday,
-            updatedAt: .now
-        ),
-        Note(
-            title: "Tomar agua",
-            content: "2 litros como mínimo",
-            iconName: "paperclip",
-            createdAt: yesterday,
-            updatedAt: .now
-        )
-    ]
-
-    return NotesListView()
-        .environment(NotesViewModel(notes: notes + notes + notes + notes + notes))
+    NotesListView()
+        .environment(NotesViewModel.populated)
 }

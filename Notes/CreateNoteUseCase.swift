@@ -8,7 +8,7 @@
 import Foundation
 
 struct CreateNoteUseCase {
-    @Service private var database: NotesDatabaseProtocol
+    let database: NotesDatabaseProtocol
 
     func createNoteWith(title: String, content: String, iconName: String) throws {
         let note = Note(
