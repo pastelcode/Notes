@@ -9,67 +9,91 @@ import SwiftUI
 import SFSymbolsPicker
 
 struct NoteDetailsView: View {
-    private enum FocusedField: Hashable {
+    private enum FocusedField {
         case title
         case content
     }
 
-    // MARK: - Form state properties
-    @State private var title = ""
-    @State private var content = ""
-    @State private var iconName = "note"
+    private enum EditingMode {
+        case update(originalNote: Note)
+        case creation
+    }
 
     // MARK: - View properties
-    let note: Note?
+
     @Environment(\.dismiss) private var dismiss
     @Environment(\.haptics) private var haptics
     @Environment(NotesViewModel.self) private var notesViewModel
+    private let editingMode: EditingMode
+    @State private var title = ""
+    @State private var content = ""
+    @State private var iconName = "note"
     @State private var showEmptyTitleError = false
     @State private var showDeleteAlert = false
     @State private var showIconPicker = false
     @FocusState private var focusedField: FocusedField?
 
-    private var isUpdate: Bool {
-        note != nil
-    }
     private var isModifiedFromOriginalNote: Bool {
-        title != note?.title || content != note?.content || iconName != note?.iconName
+        guard case .update(let originalNote) = editingMode else {
+            return true
+        }
+        return title != originalNote.title || content != originalNote.content || iconName != originalNote.iconName
     }
+
     private var isTitleEmpty: Bool {
         title.containsOnlyWhitespaces
     }
 
+    private var navigationTitle: String {
+        switch editingMode {
+        case .update(_):
+            "Note details"
+        case .creation:
+            "New note"
+        }
+    }
+
     // MARK: - Initializers
-    init(note: Note? = nil) {
-        self.note = note
+    
+    init(note: Note?) {
+        func generateRandomIconName() -> String {
+            [
+                "figure.wave",
+                "power",
+                "sunset",
+                "moon",
+                "display",
+                "camera.aperture",
+                "square.stack"
+            ].randomElement()!
+        }
+
+        editingMode = if let note {
+            .update(originalNote: note)
+        } else {
+            .creation
+        }
+        _title = .init(initialValue: note?.title ?? "")
+        _content = .init(initialValue: note?.content ?? "")
+        _iconName = .init(initialValue: note?.iconName ?? generateRandomIconName())
     }
 
     // MARK: - Methods
-    private func generateRandomIconName() -> String {
-        [
-            "figure.wave",
-            "power",
-            "sunset",
-            "moon",
-            "display",
-            "camera.aperture",
-            "square.stack"
-        ].randomElement()!
-    }
 
     private func saveNote() {
         guard !title.containsOnlyWhitespaces else {
             showEmptyTitleError = true
             return;
         }
-        if (isUpdate) {
+        switch editingMode {
+        case .update(let originalNote):
             notesViewModel.updateNoteWith(
-                identifier: note!.identifier,
+                identifier: originalNote.identifier,
                 title: title.trimmingCharacters(in: .whitespacesAndNewlines),
                 content: content.trimmingCharacters(in: .whitespacesAndNewlines),
                 iconName: iconName
             )
-        } else {
+        case .creation:
             notesViewModel.createNoteWith(
                 title: title.trimmingCharacters(in: .whitespacesAndNewlines),
                 content: content.trimmingCharacters(in: .whitespacesAndNewlines),
@@ -79,10 +103,11 @@ struct NoteDetailsView: View {
     }
 
     // MARK: - View body
+
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(alignment: .leading) {
+                Form {
                     Button("Select icon", systemImage: iconName) {
                         haptics.impact(.light)
                         showIconPicker = true
@@ -100,14 +125,17 @@ struct NoteDetailsView: View {
                         )
                     }
 
-                    TextField("Untitled", text: $title, axis: .vertical)
+                    TextField("Untitled", text: $title)
                         .font(.title)
                         .bold()
                         .padding()
+                        .focused($focusedField, equals: .title)
                         .onChange(of: title) { _, newValue in
                             showEmptyTitleError = newValue.containsOnlyWhitespaces
                         }
-                        .focused($focusedField, equals: .title)
+                        .onSubmit {
+                            focusedField = .content
+                        }
 
                     if showEmptyTitleError {
                         HStack {
@@ -125,62 +153,65 @@ struct NoteDetailsView: View {
                         .padding(.horizontal)
                         .focused($focusedField, equals: .content)
                 }
-                // MARK: Toolbar
-                .toolbar {
-                    ToolbarItem(placement: .cancellationAction) {
-                        if !isUpdate {
-                            Button("Cancel", role: .cancel) {
-                                dismiss()
-                            }
-                        }
-                    }
-                    ToolbarItem(placement: .confirmationAction) {
-                        if isModifiedFromOriginalNote {
-                            Button(isUpdate ? "Update" : "Create") {
-                                saveNote()
-                                haptics.vibrate(.success)
-                                dismiss()
-                            }
-                            .disabled(isTitleEmpty)
-                        }
-                    }
-                    if isUpdate {
-                        ToolbarItem(placement: .destructiveAction) {
-                            Button("Delete", systemImage: "trash", role: .destructive) {
-                                showDeleteAlert = true
-                            }
-                            .tint(.red)
+                .formStyle(.columns)
+            }
+            // MARK: Toolbar
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    if case .creation = editingMode {
+                        Button("Cancel", role: .cancel) {
+                            dismiss()
                         }
                     }
                 }
-                // MARK: Navigation bar
-                .navigationTitle(isUpdate ? "Note details" : "New note" )
-                .navigationBarTitleDisplayMode(.inline)
 
-                // MARK: Alerts
-                .alert("Delete note", isPresented: $showDeleteAlert) {
-                    Button("Cancel", role: .cancel) { }
-                    Button("Delete", role: .destructive) {
-                        notesViewModel.removeNoteWith(identifier: note!.identifier)
+                if case .update(let originalNote) = editingMode {
+                    ToolbarItem(placement: .destructiveAction) {
+                        Button("Delete", systemImage: "trash", role: .destructive) {
+                            showDeleteAlert = true
+                        }
+                        .tint(.red)
+                        .confirmationDialog(
+                            "Delete note",
+                            isPresented: $showDeleteAlert
+                        ) {
+                            Button("Delete", role: .destructive) {
+                                notesViewModel.removeNoteWith(identifier: originalNote.identifier)
+                                dismiss()
+                            }
+                        } message: {
+                            Text("Want to delete note \"\(originalNote.title)\"?")
+                        }
+                    }
+                }
+
+                ToolbarItem(placement: .confirmationAction) {
+                    let text = switch editingMode {
+                    case .update(_):
+                        "Update"
+                    case .creation:
+                        "Create"
+                    }
+                    Button(text) {
+                        saveNote()
+                        haptics.vibrate(.success)
                         dismiss()
                     }
+                    .disabled(isTitleEmpty || !isModifiedFromOriginalNote)
                 }
             }
+            // MARK: Navigation bar
+            .navigationTitle(navigationTitle)
+            .navigationBarTitleDisplayMode(.inline)
         }
-        // MARK: Initialization of form state properties with incoming note to update
         .onAppear {
-            if let note {
-                title = note.title
-                content = note.content
-            }
-            iconName = note?.iconName ?? generateRandomIconName()
             focusedField = .title
         }
     }
 }
 
 #Preview("Creation") {
-    NoteDetailsView()
+    NoteDetailsView(note: nil)
         .environment(NotesViewModel.forTests)
 }
 

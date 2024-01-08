@@ -34,7 +34,7 @@ struct NotesView: View {
             }
             .navigationTitle("Notes")
             .sheet(isPresented: $showCreateNoteView) {
-                NoteDetailsView()
+                NoteDetailsView(note: nil)
                     .interactiveDismissDisabled()
             }
         }
