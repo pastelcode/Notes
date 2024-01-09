@@ -9,10 +9,12 @@ import SwiftUI
 
 struct NotesView: View {
     // MARK: - View properties
+
     @Environment(NotesViewModel.self) private var notesViewModel
     @State private var showCreateNoteView = false
     
     // MARK: - View body
+
     var body: some View {
         NavigationStack {
             ZStack {
@@ -42,12 +44,13 @@ struct NotesView: View {
 }
 
 // MARK: - Previews
+
 #Preview("Empty") {
     NotesView()
-        .environment(NotesViewModel.forTests)
+        .environment(NotesViewModel.forPreviews)
 }
 
 #Preview("Populated") {
     NotesView()
-        .environment(NotesViewModel.populated)
+        .environment(NotesViewModel.forPreviews.populate())
 }

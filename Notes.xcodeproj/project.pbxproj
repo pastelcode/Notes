@@ -30,6 +30,10 @@
 		BF60607A2B4915340068057B /* EmptyNotesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6060792B4915340068057B /* EmptyNotesListView.swift */; };
 		BF60607C2B4945540068057B /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF60607B2B4945540068057B /* Environment.swift */; };
 		BFCD23322B40BF2A00D4E03C /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCD23312B40BF2A00D4E03C /* Haptics.swift */; };
+		BFEFDE002B4CFCFF00C63CE0 /* RemoveNoteProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEFDDFF2B4CFCFF00C63CE0 /* RemoveNoteProtocol.swift */; };
+		BFEFDE032B4CFD1F00C63CE0 /* UpdateNoteProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEFDE022B4CFD1F00C63CE0 /* UpdateNoteProtocol.swift */; };
+		BFEFDE062B4CFD5B00C63CE0 /* CreateNoteProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEFDE052B4CFD5B00C63CE0 /* CreateNoteProtocol.swift */; };
+		BFEFDE092B4CFD8400C63CE0 /* FetchAllNotesProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEFDE082B4CFD8400C63CE0 /* FetchAllNotesProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +72,10 @@
 		BF6060792B4915340068057B /* EmptyNotesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyNotesListView.swift; sourceTree = "<group>"; };
 		BF60607B2B4945540068057B /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 		BFCD23312B40BF2A00D4E03C /* Haptics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
+		BFEFDDFF2B4CFCFF00C63CE0 /* RemoveNoteProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveNoteProtocol.swift; sourceTree = "<group>"; };
+		BFEFDE022B4CFD1F00C63CE0 /* UpdateNoteProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateNoteProtocol.swift; sourceTree = "<group>"; };
+		BFEFDE052B4CFD5B00C63CE0 /* CreateNoteProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNoteProtocol.swift; sourceTree = "<group>"; };
+		BFEFDE082B4CFD8400C63CE0 /* FetchAllNotesProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchAllNotesProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,10 +129,7 @@
 				BF0456D42B3546120098DE62 /* Preview Content */,
 				BF0456E72B360BDC0098DE62 /* Utils.swift */,
 				BF0456FD2B3754EF0098DE62 /* NotesDatabase.swift */,
-				BF0457112B3FDF0B0098DE62 /* RemoveNoteUseCase.swift */,
-				BF04570F2B3FD36B0098DE62 /* UpdateNoteUseCase.swift */,
-				BF0456FF2B3761700098DE62 /* CreateNoteUseCase.swift */,
-				BF0457012B3762600098DE62 /* FetchAllNotesUseCase.swift */,
+				BFEFDDFD2B4CFBFF00C63CE0 /* UseCases */,
 			);
 			path = Notes;
 			sourceTree = "<group>";
@@ -182,6 +187,53 @@
 				BFCD23312B40BF2A00D4E03C /* Haptics.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		BFEFDDFD2B4CFBFF00C63CE0 /* UseCases */ = {
+			isa = PBXGroup;
+			children = (
+				BFEFDDFE2B4CFCF400C63CE0 /* RemoveNote */,
+				BFEFDE012B4CFD1500C63CE0 /* UpdateNote */,
+				BFEFDE042B4CFD4300C63CE0 /* CreateNote */,
+				BFEFDE072B4CFD7700C63CE0 /* FetchAllNotes */,
+			);
+			path = UseCases;
+			sourceTree = "<group>";
+		};
+		BFEFDDFE2B4CFCF400C63CE0 /* RemoveNote */ = {
+			isa = PBXGroup;
+			children = (
+				BF0457112B3FDF0B0098DE62 /* RemoveNoteUseCase.swift */,
+				BFEFDDFF2B4CFCFF00C63CE0 /* RemoveNoteProtocol.swift */,
+			);
+			path = RemoveNote;
+			sourceTree = "<group>";
+		};
+		BFEFDE012B4CFD1500C63CE0 /* UpdateNote */ = {
+			isa = PBXGroup;
+			children = (
+				BF04570F2B3FD36B0098DE62 /* UpdateNoteUseCase.swift */,
+				BFEFDE022B4CFD1F00C63CE0 /* UpdateNoteProtocol.swift */,
+			);
+			path = UpdateNote;
+			sourceTree = "<group>";
+		};
+		BFEFDE042B4CFD4300C63CE0 /* CreateNote */ = {
+			isa = PBXGroup;
+			children = (
+				BF0456FF2B3761700098DE62 /* CreateNoteUseCase.swift */,
+				BFEFDE052B4CFD5B00C63CE0 /* CreateNoteProtocol.swift */,
+			);
+			path = CreateNote;
+			sourceTree = "<group>";
+		};
+		BFEFDE072B4CFD7700C63CE0 /* FetchAllNotes */ = {
+			isa = PBXGroup;
+			children = (
+				BF0457012B3762600098DE62 /* FetchAllNotesUseCase.swift */,
+				BFEFDE082B4CFD8400C63CE0 /* FetchAllNotesProtocol.swift */,
+			);
+			path = FetchAllNotes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -293,9 +345,12 @@
 				BF0456E42B3550810098DE62 /* NotesListView.swift in Sources */,
 				BF0456E12B3549B60098DE62 /* NotesViewModel.swift in Sources */,
 				BF60607C2B4945540068057B /* Environment.swift in Sources */,
+				BFEFDE002B4CFCFF00C63CE0 /* RemoveNoteProtocol.swift in Sources */,
 				BF0456FE2B3754EF0098DE62 /* NotesDatabase.swift in Sources */,
 				BF0457102B3FD36B0098DE62 /* UpdateNoteUseCase.swift in Sources */,
 				BF0456E62B35F5750098DE62 /* NoteDetailsView.swift in Sources */,
+				BFEFDE062B4CFD5B00C63CE0 /* CreateNoteProtocol.swift in Sources */,
+				BFEFDE032B4CFD1F00C63CE0 /* UpdateNoteProtocol.swift in Sources */,
 				BF0456E82B360BDC0098DE62 /* Utils.swift in Sources */,
 				BF0456D12B3546100098DE62 /* ContentView.swift in Sources */,
 				BF0457022B3762600098DE62 /* FetchAllNotesUseCase.swift in Sources */,
@@ -306,6 +361,7 @@
 				BF0456EC2B36422D0098DE62 /* NoteRow.swift in Sources */,
 				BF0457002B3761700098DE62 /* CreateNoteUseCase.swift in Sources */,
 				BF0456EA2B3616920098DE62 /* NotesView.swift in Sources */,
+				BFEFDE092B4CFD8400C63CE0 /* FetchAllNotesProtocol.swift in Sources */,
 				BF0456DE2B35480A0098DE62 /* Note.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

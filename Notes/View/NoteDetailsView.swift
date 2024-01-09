@@ -212,11 +212,11 @@ struct NoteDetailsView: View {
 
 #Preview("Creation") {
     NoteDetailsView(note: nil)
-        .environment(NotesViewModel.forTests)
+        .environment(NotesViewModel.forPreviews)
 }
 
 #Preview("Update") {
-    let viewModel = NotesViewModel.forTests
+    let viewModel = NotesViewModel.forPreviews
     let note = Note(
         title: "Old title",
         content: "Old description",

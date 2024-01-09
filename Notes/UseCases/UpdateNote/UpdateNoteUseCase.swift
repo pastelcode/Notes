@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct UpdateNoteUseCase {
+struct UpdateNoteUseCase: UpdateNoteProtocol {
     let database: NotesDatabaseProtocol
 
     func updateNoteWith(identifier: UUID, title: String, content: String, iconName: String) throws {

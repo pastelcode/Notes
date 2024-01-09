@@ -11,30 +11,25 @@ struct NotesListView: View {
     // MARK: - View properties
     @Environment(NotesViewModel.self) private var notesViewModel
     @State private var showCreateNoteView = false
-    @State private var dateToSortBy = \Note.createdAt
-
-    private var sortedNotes: [Note] {
-        notesViewModel.notes.sorted { previousNote, nextNote in
-            previousNote[keyPath: dateToSortBy] > nextNote[keyPath: dateToSortBy]
-        }
-    }
 
     // MARK: - View body
     var body: some View {
+        @Bindable var notesViewModel = notesViewModel
+
         List {
             Section {
-                Picker("Sort by", selection: $dateToSortBy) {
+                Picker("Sort by", selection: $notesViewModel.sortNotesBy) {
                     Text("Creation")
                         .tag(\Note.createdAt)
                     Text("Updated")
                         .tag(\Note.updatedAt)
                 }
             }
-            ForEach(sortedNotes) { note in
+            ForEach(notesViewModel.sortedNotes) { note in
                 NavigationLink {
                     NoteDetailsView(note: note)
                 } label: {
-                    NoteRow(note: note, dateToShow: dateToSortBy)
+                    NoteRow(note: note, dateToShow: notesViewModel.sortNotesBy)
                 }
                 .swipeActions {
                     Button("Remove", systemImage: "trash") {
@@ -51,5 +46,5 @@ struct NotesListView: View {
 
 #Preview {
     NotesListView()
-        .environment(NotesViewModel.populated)
+        .environment(NotesViewModel.forPreviews.populate())
 }
