@@ -8,13 +8,60 @@
 import XCTest
 @testable import Notes
 
+var notesDatabase: [Note] = []
+
+struct CreateNoteUseCaseMock: CreateNoteProtocol {
+    func createNoteWith(title: String, content: String, iconName: String) throws {
+        let note = Note(
+            title: title,
+            content: content,
+            iconName: iconName,
+            createdAt: .now,
+            updatedAt: .now
+        )
+        notesDatabase.append(note)
+    }
+}
+
+struct FetchAllNotesUseCaseMock: FetchAllNotesProtocol {
+    func fetchAll(sortBy: KeyPath<Note, Date>) throws -> [Note] {
+        notesDatabase
+    }
+}
+
+struct UpdateNoteUseCaseMock: UpdateNoteProtocol {
+    func updateNoteWith(identifier: UUID, title: String, content: String, iconName: String) throws {
+        if let note = notesDatabase.first(where: { $0.identifier == identifier }) {
+            note.title = title
+            note.content = content
+            note.iconName = iconName
+            note.updatedAt = .now
+        }
+    }
+}
+
+struct RemoveNoteUseCaseMock: RemoveNoteProtocol {
+    func removeNoteWith(identifier: UUID) throws {
+        notesDatabase.removeAll { $0.identifier == identifier }
+    }
+}
+
 final class NotesViewModelTests: XCTestCase {
     var viewModel: NotesViewModel!
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in
         // the class.
-        viewModel = NotesViewModel()
+        viewModel = NotesViewModel(
+            createNoteUseCase: CreateNoteUseCaseMock(),
+            fetchAllNotesUseCase: FetchAllNotesUseCaseMock(),
+            updateNoteUseCase: UpdateNoteUseCaseMock(),
+            removeNoteUseCase: RemoveNoteUseCaseMock()
+        )
+    }
+
+    override func tearDownWithError() throws {
+        notesDatabase.removeAll()
     }
 
     func testCreateNote() {

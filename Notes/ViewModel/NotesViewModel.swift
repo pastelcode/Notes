@@ -40,7 +40,7 @@ import Observation
         )
     }
 
-    private init(
+    init(
         createNoteUseCase: CreateNoteProtocol,
         fetchAllNotesUseCase: FetchAllNotesProtocol,
         updateNoteUseCase: UpdateNoteProtocol,

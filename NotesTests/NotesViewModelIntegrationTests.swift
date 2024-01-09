@@ -15,22 +15,7 @@ final class NotesViewModelIntegrationTests: XCTestCase {
     @MainActor override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in
         // the class.
-        ServiceContainer.clear()
-        ServiceContainer.register(
-            type: NotesDatabaseProtocol.self,
-            using: NotesDatabase(inMemory: true)
-        )
-        ServiceContainer.register(type: CreateNoteUseCase.self, using: CreateNoteUseCase())
-        ServiceContainer.register(type: FetchAllNotesUseCase.self, using: FetchAllNotesUseCase())
-        ServiceContainer.register(type: UpdateNoteUseCase.self, using: UpdateNoteUseCase())
-        ServiceContainer.register(type: RemoveNoteUseCase.self, using: RemoveNoteUseCase())
-        sut = .init()
-    }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method
-        // in the class.
-        ServiceContainer.clear()
+        sut = .forPreviews
     }
 
     func testCreateNote() {
